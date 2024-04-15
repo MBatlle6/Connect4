@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string name="app_name" translatable="false">Connect4</string>
+    <string name="help">Ajuda</string>
+    <string name="exit">Sortida</string>
+    <string name="startGame">Començar Partida</string>
+    <string name="mainMenu">Principal</string>
+    <string name="welcome">Benvinguts al Connect 4</string>
+    <string name="description">Connect 4 és un joc de tauler per a dos jugadors. L\'objectiu és alinear quatre fitxes del mateix color en una línia contínua en horitzontal, vertical o diagonal. Els jugadors col·loquen les fitxes alternativament en una graella rectangular de 6x7. Guanya qui aconsegueixi la línia de quatre fitxes primer. Estratègia i anticipació són clau per guanyar.</string>
+    <string name="goToGame">Anar al joc</string>
+    <string name="settings">Configuració</string>
+    <string name="alias">Alias</string>
+    <string name="gridSize">Mida graella</string>
+    <string name="timeControl">Control del temps</string>
+    <string name="start">Començar</string>
+    <string name="timeOver">S\'ha acabat el temps !!</string>
+    <string name="results">Resultats</string>
+    <string name="dateAndHour">Data i hora</string>
+    <string name="logValues">Valors del log</string>
+    <string name="totalTime">Temps total</string>
+    <string name="timeFinished">Has esgotat el temps!</string>
+    <string name="recipientEmail">E-mail destinatari</string>
+    <string name="sendEmail">Enviar e-mail</string>
+    <string name="newGame">Nova partida</string>
+</resources>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name" translatable="false">Connect4</string>
+    <string name="help">Ayuda</string>
+    <string name="exit">Salir</string>
+    <string name="startGame">Empezar Partida</string>
+    <string name="mainMenu">Principal</string>
+    <string name="welcome">Bienvenidos al Connect 4</string>
+    <string name="description">Connect 4 es un juego de mesa para dos jugadores. El objetivo es alinear cuatro fichas del mismo color en una línea continua, ya sea horizontal, vertical o diagonal. Los jugadores colocan las fichas alternativamente en una rejilla rectangular de 6x7. Gana el jugador que logre la línea de cuatro fichas primero. La estrategia y la anticipación son clave para ganar.</string>
+    <string name="goToGame">Ir al guego</string>
+    <string name="settings">Configuración</string>
+    <string name="alias">Alias</string>
+    <string name="gridSize">Tamaño tablero</string>
+    <string name="timeControl">Control del tiempo</string>
+    <string name="start">Empezar</string>
+    <string name="timeOver">Se ha acabado el tiempo !!</string>
+    <string name="results">Resultados</string>
+    <string name="dateAndHour">Fecha y hora</string>
+    <string name="logValues">Valores del log</string>
+    <string name="totalTime">Tiempo total</string>
+    <string name="timeFinished">¡Has acabado el tiempo!</string>
+    <string name="recipientEmail">E-mail destinatario</string>
+    <string name="sendEmail">Enviar e-mail</string>
+    <string name="newGame">Nueva partida</string>
+
+</resources>

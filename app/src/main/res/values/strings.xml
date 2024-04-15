@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name" translatable="false">Connect4</string>
+    <string name="help">Help</string>
+    <string name="exit">Exit</string>
+    <string name="startGame">Start Game</string>
+    <string name="mainMenu">Main</string>
+    <string name="welcome">Welcome to Connect 4</string>
+    <string name="goToGame">Go to game</string>
+    <string name="description">Connect 4 is a board game for two players. The objective is to align four pieces of the same color in a continuous line, either horizontally, vertically, or diagonally. Players alternate placing pieces on a rectangular grid of 6x7. The player who achieves the line of four pieces first wins. Strategy and anticipation are key to winning.</string>
+    <string name="settings">Settings</string>
+    <string name="alias">Alias</string>
+    <string name="gridSize">Grid size</string>
+    <string name="timeControl">Time control</string>
+    <string name="start">Start</string>
+    <string name="timeOver">Time over !!</string>
+    <string name="results">Results</string>
+    <string name="dateAndHour">Date and hour</string>
+    <string name="logValues">Log values</string>
+    <string name="totalTime">Total time</string>
+    <string name="timeFinished">You\'ve finished the time!</string>
+    <string name="recipientEmail">Recipient e-mail</string>
+    <string name="sendEmail">Send e-mail</string>
+    <string name="newGame">New game</string>
+
+</resources>
