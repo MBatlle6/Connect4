@@ -18,7 +18,7 @@ class Connect4ViewModel : ViewModel() {
     private val _configurationScreen = MutableLiveData<Boolean>(false)
     val configurationScreen: LiveData<Boolean> = _configurationScreen
 
-    private val _alias = MutableLiveData<String>("")
+    private val _alias = MutableLiveData<String>("Player1")
     val alias: LiveData<String> = _alias
 
     private val _log = MutableLiveData<String>("")
@@ -74,14 +74,12 @@ class Connect4ViewModel : ViewModel() {
         _gameFinished.value = value
     }
 
-
     fun resetGame(){
         _time.value = 0
         _countdownTime.value = 5
-        _gameFinished.value = false
         _log.value = ""
-        _alias.value = ""
-        _timeControl.value = false
+        _alias.value = "Player1"
+        _timeControl.value = false //Per la UI. checkbox clock desseleccionda
         _bigGrid.value = Array(7){ Array(7){Color.White} }
         _mediumGrid.value = Array(6){ Array(6){Color.White} }
         _littleGrid.value = Array(5){ Array(5){Color.White} }

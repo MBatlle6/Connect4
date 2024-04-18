@@ -111,8 +111,8 @@ fun Timer(activity: MainActivity, viewModel: Connect4ViewModel) {
                     break
                 }
                 delay(1000L)
-                viewModel.decrementTime()
-                viewModel.incrementTime()
+                viewModel.decrementTime() //Countdown time
+                viewModel.incrementTime()  //Normal Time
             }
             if(!viewModel.gameFinished.value!!){
                 Toast.makeText(activity,activity.getString(R.string.timeOver),Toast.LENGTH_LONG).show()
@@ -126,13 +126,13 @@ fun Timer(activity: MainActivity, viewModel: Connect4ViewModel) {
 
         }
         Text(
-            text = viewModel.countdownTime.value!!.toString() + 's',
+            text = viewModel.countdownTime.value!!.toString() + 's',  //Numero segons dins de la partida
             color = Color.Red
         )
     }
     else{
         LaunchedEffect(Unit) {
-            while (viewModel.time.value!! < 5000) {
+            while (viewModel.time.value!! < 5000) { //Contador segon 5000 para
                 if(viewModel.gameFinished.value!!){
                     viewModel.addToLog("\n" + activity.getString(R.string.totalTime) + ": " + viewModel.time.value.toString() + " s")
                     break
@@ -142,7 +142,7 @@ fun Timer(activity: MainActivity, viewModel: Connect4ViewModel) {
             }
         }
         Text(
-            text = viewModel.time.value!!.toString() + " s",
+            text = viewModel.time.value!!.toString() + " s", //Numero segons dins de la partida
             color = Color.Blue
         )
     }
@@ -161,7 +161,7 @@ fun EmailWrittingButton(viewModel: Connect4ViewModel){
         },
         value = TextFieldValue(viewModel.email.value!!, selection = TextRange(viewModel.email.value!!.length)),
         onValueChange = {
-            if(it.text.length < 35) viewModel.setEmail(it.text)
+            if(it.text.length < 35) viewModel.setEmail(it.text)  //Llargada opcional
         },
         singleLine = true,
         keyboardOptions = KeyboardOptions.Default.copy(
