@@ -79,10 +79,10 @@ class Connect4ViewModel : ViewModel() {
         _countdownTime.value = 5
         _log.value = ""
         _alias.value = "Player1"
-        _timeControl.value = false //Per la UI. checkbox clock desseleccionda
         _bigGrid.value = Array(7){ Array(7){Color.White} }
         _mediumGrid.value = Array(6){ Array(6){Color.White} }
         _littleGrid.value = Array(5){ Array(5){Color.White} }
+        _gameFinished.value = false
 
     }
 
