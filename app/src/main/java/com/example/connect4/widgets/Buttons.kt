@@ -67,7 +67,6 @@ fun LittleGridButton(viewModel: Connect4ViewModel){
         }
     )
 }
-
 @Composable
 fun MediumGridButton(viewModel: Connect4ViewModel){
     RadioButton(
@@ -77,7 +76,6 @@ fun MediumGridButton(viewModel: Connect4ViewModel){
         }
     )
 }
-
 @Composable
 fun BigGridButton(viewModel: Connect4ViewModel){
     RadioButton(
@@ -130,9 +128,9 @@ fun Timer(activity: MainActivity, viewModel: Connect4ViewModel) {
             color = Color.Red
         )
     }
-    else{
+    else{//countdown
         LaunchedEffect(Unit) {
-            while (viewModel.time.value!! < 5000) { //Contador segon 5000 para
+            while (viewModel.time.value!! < 15000) { //Contador segon 5000 para
                 if(viewModel.gameFinished.value!!){
                     viewModel.addToLog("\n" + activity.getString(R.string.totalTime) + ": " + viewModel.time.value.toString() + " s")
                     break

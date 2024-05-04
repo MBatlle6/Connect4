@@ -66,5 +66,5 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
-    implementation("androidx.compose.runtime:runtime-livedata:1.6.5")
+    implementation("androidx.compose.runtime:runtime-livedata:1.6.6")
 }

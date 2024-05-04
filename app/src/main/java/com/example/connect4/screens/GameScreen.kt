@@ -22,6 +22,7 @@ import com.example.connect4.Connect4ViewModel
 import com.example.connect4.MainActivity
 import com.example.connect4.R
 import com.example.connect4.widgets.BigGrid
+import com.example.connect4.widgets.LazyVerticalGrid
 import com.example.connect4.widgets.LittleGrid
 import com.example.connect4.widgets.MediumGrid
 import com.example.connect4.widgets.Timer
@@ -50,10 +51,10 @@ fun GameScreen(activity: MainActivity, viewModel: Connect4ViewModel){
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Bottom
         ) {
-            if (viewModel.gridSize.value == 5) LittleGrid(viewModel = viewModel)
-            else if (viewModel.gridSize.value == 6) MediumGrid(viewModel = viewModel)
-            else BigGrid(viewModel = viewModel)
-            
+            if (viewModel.gridSize.value == 5) LazyVerticalGrid(tipusGrid = 5, viewModel = viewModel)
+            else if (viewModel.gridSize.value == 6) LazyVerticalGrid(tipusGrid = 6, viewModel = viewModel)
+            else if (viewModel.gridSize.value == 7) LazyVerticalGrid(tipusGrid = 7, viewModel = viewModel)
+
         }
 
     }

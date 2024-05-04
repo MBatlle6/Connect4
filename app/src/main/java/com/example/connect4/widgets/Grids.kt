@@ -3,129 +3,63 @@ package com.example.connect4.widgets
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.ui.Alignment
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardColors
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.connect4.Connect4ViewModel
-
-
-private var i = 0
-private var j = 0
+import org.w3c.dom.Text
 
 @Composable
-fun BigGrid(viewModel: Connect4ViewModel){
-    Column(
-        modifier = Modifier
-            .background(Color(0xFF0A1172)),
+fun LazyVerticalGrid(tipusGrid: Int, viewModel: Connect4ViewModel){
+    val list = (1..10).map { it.toString() }
+    var backgroundColor by remember{ mutableStateOf(Color.Gray)}
 
-    ) {
-        repeat(7) {
-            Row(
-                horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                repeat(7) {
-                    val rowIndex = i
-                    val columnIndex = j
-                    Button(
-                        onClick = {
-                            viewModel.setCellColorBigGrid(rowIndex, columnIndex, Color.Red)
-                        },
-                        modifier = Modifier
-                            .clip(CircleShape)
-                            .size(59.dp)
-                            .padding(3.dp),
-                        colors = ButtonDefaults.buttonColors(viewModel.bigGrid.value!![i][j])
-                    ){
-                    }
-                    j++
+    LazyVerticalGrid(
+        columns = GridCells.Fixed(tipusGrid),
+        content = {
+            items(tipusGrid*tipusGrid){i ->
+                Button(
+                    onClick = {
+                        //ficar color
+                        backgroundColor = if(backgroundColor == Color.White) Color.Red else Color.White
+                        //comprobar si es guanye
+
+                        viewModel.tirarturnoIA()
+                    },
+                    modifier = Modifier
+                        //.padding(16.dp)
+                        //.fillMaxWidth()
+                        //.height(50.dp)
+                        .background(Color.White, shape = RoundedCornerShape(8.dp)),
+                    shape = RoundedCornerShape(8.dp)
+                ){
                 }
-                j = 0
+
             }
-            i ++
         }
-        i = 0
-    }
-}
 
-@Composable
-fun MediumGrid(viewModel: Connect4ViewModel){
-    Column(
-        modifier = Modifier
-            .background(Color(0xFF0A1172)),
-
-        ) {
-        repeat(6) {
-            Row(
-                horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                repeat(6) {
-                    val rowIndex = i
-                    val columnIndex = j
-                    Button(
-                        onClick = {
-                            viewModel.setCellColorMediumGrid(rowIndex, columnIndex, Color.Red)
-                        },
-                        modifier = Modifier
-                            .clip(CircleShape)
-                            .size(59.dp)
-                            .padding(3.dp),
-                        colors = ButtonDefaults.buttonColors(viewModel.mediumGrid.value!![i][j])
-                    ){
-                    }
-                    j++
-                }
-                j = 0
-            }
-            i ++
-        }
-        i = 0
-    }
-}
-
-@Composable
-fun LittleGrid(viewModel: Connect4ViewModel){
-    Column(
-        modifier = Modifier
-            .background(Color(0xFF0A1172)),
-
-        ) {
-        repeat(5) {
-            Row(
-                horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                repeat(5) {
-                    val rowIndex = i
-                    val columnIndex = j
-                    Button(
-                        onClick = {
-                            viewModel.setCellColorLittleGrid(rowIndex, columnIndex, Color.Red)
-                        },
-                        modifier = Modifier
-                            .clip(CircleShape)
-                            .size(59.dp)
-                            .padding(3.dp),
-                        colors = ButtonDefaults.buttonColors(viewModel.littleGrid.value!![i][j])
-                    ){
-                    }
-                    j++
-                }
-                j = 0
-            }
-            i ++
-        }
-        i = 0
-    }
+    )
 }

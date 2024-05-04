@@ -134,5 +134,14 @@ class Connect4ViewModel : ViewModel() {
         _configurationScreen.value = value
     }
 
+    fun tirarturnoPlayer (){
 
+        //tot lo que fa al turno
+
+        tirarturnoIA()//no se segur si aixo aqui
+    }
+
+    fun tirarturnoIA(){
+
+    }
 }
