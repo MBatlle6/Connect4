@@ -212,14 +212,227 @@ class Connect4ViewModel : ViewModel() {
         if(grid == 1){//BigGrid
             viewModel.setCellColorBigGrid(i, j, Color.Red,"R")
               a_retornar = getCellColorBigGrid(i,j)
-        }else if (grid == 2){//MediumGrid
+            if (comprobarsihemguanyatGran()){
+                //_gameFinished.value = true
+                println("Joc Finalitzat")
+            }
+        }
+        if (grid == 2){//MediumGrid
             viewModel.setCellColorMediumGrid(i, j, Color.Red,"R")
             a_retornar = getCellColorMediumGrid(i,j)
-        }else if (grid == 3){//LittleGrid
+            if (comprobarsihemguanyatMitja()){
+                //_gameFinished.value = true
+                println("Joc Finalitzat")
+            }
+
+        }
+        if (grid == 3){//LittleGrid
             viewModel.setCellColorLittleGrid(i, j, Color.Red,"R")
             a_retornar = getCellColorLittleGrid(i,j)
+            if (comprobarsihemguanyatPetit()){
+                //_gameFinished.value = true
+                println("Joc Finalitzat")
+            }
+
         }
         println("color de la posicio $i,$j = \"$a_retornar\"" )
     }
+    fun comprobarsihemguanyatGran():Boolean{
+        val w:String = "W"
+        val currentGrid = _bigGrid.value
+        //----------matriu gran----------
+        currentGrid?.let { grid->
+            var positionToCheck:String?
+            // mirem files
+            for (row in 0 until 7) {
+                for (col in 0 until 4) {
+                    if (grid[row][col].second == grid[row][col + 1].second &&
+                        grid[row][col].second == grid[row][col + 2].second &&
+                        grid[row][col].second == grid[row][col + 3].second) {
+                        positionToCheck =  getCellColorBigGrid(row,col)
+                        if(positionToCheck != w){
+                            return true
+                        }
+                    }
+                }
+            }
+
+            // mirem columnes
+            for (col in 0 until 7) {
+                for (row in 0 until 4) {
+                    if (grid[row][col].second == grid[row + 1][col].second &&
+                        grid[row][col].second == grid[row + 2][col].second &&
+                        grid[row][col].second == grid[row + 3][col].second) {
+                        positionToCheck =  getCellColorBigGrid(row,col)
+                        if(positionToCheck != w){
+                            return true
+                        }
+                    }
+                }
+            }
+
+            // diagonals (esquerra a dalt- dreta a baix )
+            for (row in 0 until 4) {
+                for (col in 0 until 4) {
+                    if (grid[row][col].second == grid[row + 1][col + 1].second &&
+                        grid[row][col].second == grid[row + 2][col + 2].second &&
+                        grid[row][col].second == grid[row + 3][col + 3].second) {
+                        positionToCheck =  getCellColorBigGrid(row,col)
+                        if(positionToCheck != w){
+                            return true
+                        }
+                    }
+                }
+            }
+
+            // diagonals (dreta dalt- esquerra baix) (right-top to left-bottom)
+            for (row in 0 until 4) {
+                for (col in 3 until 7) {
+                    if (grid[row][col].second == grid[row + 1][col - 1].second &&
+                        grid[row][col].second == grid[row + 2][col - 2].second &&
+                        grid[row][col].second == grid[row + 3][col - 3].second) {
+                        positionToCheck =  getCellColorBigGrid(row,col)
+                        if(positionToCheck != w){
+                            return true
+                        }
+                    }
+                }
+            }
+        }
+        return false
+    }
+
+    fun comprobarsihemguanyatMitja():Boolean{
+        val w:String = "W"
+        //----------matriu mitjana----------
+        val currentGrid2 = _mediumGrid.value
+        currentGrid2?.let { grid->
+            //verificar files
+            var positionToCheck:String?
+            // mirem files
+            for (row in 0 until 6) {
+                for (col in 0 until 3) {
+                    if (grid[row][col].second == grid[row][col + 1].second &&
+                        grid[row][col].second == grid[row][col + 2].second &&
+                        grid[row][col].second == grid[row][col + 3].second) {
+                        positionToCheck =  getCellColorMediumGrid(row,col)
+                        if(positionToCheck != w){
+                            return true
+                        }
+                    }
+                }
+            }
+
+            // mirem columnes
+            for (col in 0 until 6) {
+                for (row in 0 until 3) {
+                    if (grid[row][col].second == grid[row + 1][col].second &&
+                        grid[row][col].second == grid[row + 2][col].second &&
+                        grid[row][col].second == grid[row + 3][col].second) {
+                        positionToCheck =  getCellColorMediumGrid(row,col)
+                        if(positionToCheck != w){
+                            return true
+                        }
+                    }
+                }
+            }
+
+            // diagonals (esquerra a dalt- dreta a baix )
+            for (row in 0 until 3) {
+                for (col in 0 until 3) {
+                    if (grid[row][col].second == grid[row + 1][col + 1].second &&
+                        grid[row][col].second == grid[row + 2][col + 2].second &&
+                        grid[row][col].second == grid[row + 3][col + 3].second) {
+                        positionToCheck =  getCellColorMediumGrid(row,col)
+                        if(positionToCheck != w){
+                            return true
+                        }
+                    }
+                }
+            }
+
+            // diagonals (dreta dalt- esquerra baix) (right-top to left-bottom)
+            for (row in 0 until 3) {
+                for (col in 3 until 6) {
+                    if (grid[row][col].second == grid[row + 1][col - 1].second &&
+                        grid[row][col].second == grid[row + 2][col - 2].second &&
+                        grid[row][col].second == grid[row + 3][col - 3].second) {
+                        positionToCheck =  getCellColorMediumGrid(row,col)
+                        if(positionToCheck != w){
+                            return true
+                        }
+                    }
+                }
+            }
+        }
+        return false
+    }
+
+    fun comprobarsihemguanyatPetit():Boolean{
+        val w:String = "W"
+        //----------matriu petita----------
+        val currentGrid3 = _littleGrid.value
+        currentGrid3?.let { grid->
+            //verificar files
+            var positionToCheck:String?
+            // mirem files
+            for (row in 0 until 5) {
+                for (col in 0 until 2) {
+                    if (grid[row][col].second == grid[row][col + 1].second &&
+                        grid[row][col].second == grid[row][col + 2].second &&
+                        grid[row][col].second == grid[row][col + 3].second) {
+                        positionToCheck =  getCellColorLittleGrid(row,col)
+                        if(positionToCheck != w){
+                            return true
+                        }
+                    }
+                }
+            }
+
+            // mirem columnes
+            for (col in 0 until 5) {
+                for (row in 0 until 2) {
+                    if (grid[row][col].second == grid[row + 1][col].second &&
+                        grid[row][col].second == grid[row + 2][col].second &&
+                        grid[row][col].second == grid[row + 3][col].second) {
+                        positionToCheck =  getCellColorLittleGrid(row,col)
+                        if(positionToCheck != w){
+                            return true
+                        }
+                    }
+                }
+            }
+
+            // diagonals (esquerra a dalt- dreta a baix )
+            for (row in 0 until 2) {
+                for (col in 0 until 2) {
+                    if (grid[row][col].second == grid[row + 1][col + 1].second &&
+                        grid[row][col].second == grid[row + 2][col + 2].second &&
+                        grid[row][col].second == grid[row + 3][col + 3].second) {
+                        positionToCheck =  getCellColorLittleGrid(row,col)
+                        if(positionToCheck != w){
+                            return true
+                        }
+                    }
+                }
+            }
+
+            // diagonals (dreta dalt- esquerra baix) (right-top to left-bottom)
+            for (row in 0 until 2) {
+                for (col in 3 until 5) {
+                    if (grid[row][col].second == grid[row + 1][col - 1].second &&
+                        grid[row][col].second == grid[row + 2][col - 2].second &&
+                        grid[row][col].second == grid[row + 3][col - 3].second) {
+                        positionToCheck =  getCellColorLittleGrid(row,col)
+                        if(positionToCheck != w){
+                            return true
+                        }
+                    }
+                }
+            }
+        }
+        return false
+    }
+
 
 }
