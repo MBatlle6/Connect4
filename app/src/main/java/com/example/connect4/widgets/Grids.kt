@@ -39,7 +39,8 @@ fun BigGrid(viewModel: Connect4ViewModel){
                     val columnIndex = j
                     Button(
                         onClick = {
-                            viewModel.turnoJugador(rowIndex,columnIndex, viewModel)
+                            //PER PASSAR LA GRID ES POT FER QUE ES PASSI PER PARAMETRE AL TURNOJUGADOR
+                            viewModel.turnoJugador(rowIndex,columnIndex, viewModel,1)
                             //viewModel.setCellColorBigGrid(rowIndex, columnIndex, Color.Red)
                         },
                         modifier = Modifier
@@ -76,13 +77,13 @@ fun MediumGrid(viewModel: Connect4ViewModel){
                     val columnIndex = j
                     Button(
                         onClick = {
-                            viewModel.turnoJugador(rowIndex,columnIndex, viewModel)
+                            viewModel.turnoJugador(rowIndex,columnIndex, viewModel,2)
                         },
                         modifier = Modifier
                             .clip(CircleShape)
                             .size(59.dp)
                             .padding(3.dp),
-                        colors = ButtonDefaults.buttonColors(viewModel.mediumGrid.value!![i][j])
+                        colors = ButtonDefaults.buttonColors(viewModel.bigGrid.value!![i][j].first)
                     ){
                     }
                     j++
@@ -112,13 +113,13 @@ fun LittleGrid(viewModel: Connect4ViewModel){
                     val columnIndex = j
                     Button(
                         onClick = {
-                            viewModel.setCellColorLittleGrid(rowIndex, columnIndex, Color.Red)
+                            viewModel.turnoJugador(rowIndex,columnIndex, viewModel,3)
                         },
                         modifier = Modifier
                             .clip(CircleShape)
                             .size(59.dp)
                             .padding(3.dp),
-                        colors = ButtonDefaults.buttonColors(viewModel.littleGrid.value!![i][j])
+                        colors = ButtonDefaults.buttonColors(viewModel.bigGrid.value!![i][j].first)
                     ){
                     }
                     j++
