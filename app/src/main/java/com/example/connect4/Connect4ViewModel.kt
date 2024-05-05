@@ -502,9 +502,9 @@ class Connect4ViewModel : ViewModel() {
     fun victoria(activity: MainActivity,viewModel: Connect4ViewModel){
         viewModel.addToLog("\n" + activity.getString(R.string.totalTime) + ": " + viewModel.time.value.toString() + " s")
         viewModel.addToLog("\n" + activity.getString(R.string.timeFinished))
-        viewModel.setGameScreen(false)
-        viewModel.setLogScreen(true)
         viewModel.setGameFinished(true)
+        viewModel.setLogScreen(true)
+        viewModel.setGameScreen(false)
     }
 
 }
