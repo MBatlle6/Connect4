@@ -21,10 +21,7 @@ import androidx.compose.ui.unit.dp
 import com.example.connect4.Connect4ViewModel
 import com.example.connect4.MainActivity
 import com.example.connect4.R
-import com.example.connect4.widgets.BigGrid
 import com.example.connect4.widgets.LazyVerticalGrid
-import com.example.connect4.widgets.LittleGrid
-import com.example.connect4.widgets.MediumGrid
 import com.example.connect4.widgets.Timer
 
 @Composable

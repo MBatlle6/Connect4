@@ -145,6 +145,9 @@ fun Timer(activity: MainActivity, viewModel: Connect4ViewModel) {
         )
     }
 }
+fun showInGameToast(activity: MainActivity){
+    Toast.makeText(activity,activity.getString(R.string.popUpInGame),Toast.LENGTH_LONG).show()
+}
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable

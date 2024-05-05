@@ -1,10 +1,12 @@
 package com.example.connect4
 
+import android.provider.Settings.Global.getString
+import android.widget.Toast
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-
+import com.example.connect4.R.string.popUpInGame
 
 
 class Connect4ViewModel : ViewModel() {
@@ -144,4 +146,5 @@ class Connect4ViewModel : ViewModel() {
     fun tirarturnoIA(){
 
     }
+
 }

@@ -22,5 +22,6 @@
     <string name="recipientEmail">E-mail destinatario</string>
     <string name="sendEmail">Enviar e-mail</string>
     <string name="newGame">Nueva partida</string>
+    <string name="popUpInGame">Posición no disponible</string>
 
 </resources>

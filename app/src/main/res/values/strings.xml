@@ -21,5 +21,6 @@
     <string name="recipientEmail">Recipient e-mail</string>
     <string name="sendEmail">Send e-mail</string>
     <string name="newGame">New game</string>
+    <string name="popUpInGame">Position not available</string>
 
 </resources>
