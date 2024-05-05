@@ -62,13 +62,13 @@ class Connect4ViewModel : ViewModel() {
     fun ifposiciocorrecta(rowIndex: Int, columnIndex: Int,grid:Int):Boolean{
         val w:String = "W"
         if (grid == 1){
-            var positionToCheck:String?=  getCellColorBigGrid(rowIndex,columnIndex)
+            val positionToCheck:String?=  getCellColorBigGrid(rowIndex,columnIndex)
             if (positionToCheck == w){return true}
         }else if (grid == 2){
-            var positionToCheck:String?=  getCellColorMediumGrid(rowIndex,columnIndex)
+            val positionToCheck:String?=  getCellColorMediumGrid(rowIndex,columnIndex)
             if (positionToCheck == w){return true}
         }else if(grid == 3){
-            var positionToCheck:String?=  getCellColorLittleGrid(rowIndex,columnIndex)
+            val positionToCheck:String?=  getCellColorLittleGrid(rowIndex,columnIndex)
             if (positionToCheck == w){return true}
         }
         return false
@@ -77,11 +77,15 @@ class Connect4ViewModel : ViewModel() {
     //---------------BIG GRID---------------//
     fun setCellColorBigGrid(rowIndex: Int, columnIndex: Int, color: Color, text: String) {
 
-        if(ifposiciocorrecta(rowIndex,columnIndex,1) == true){
+        if(ifposiciocorrecta(rowIndex,columnIndex,1)){
             val currentGrid = _bigGrid.value
             currentGrid?.let { grid->
-                println("Setting color $color and text \"$text\"")
-                grid[rowIndex][columnIndex] = Pair(color,text)
+                for(i in 6 downTo rowIndex ){
+                    if(ifposiciocorrecta(i,columnIndex,1)){
+                        grid[i][columnIndex] = Pair(color,text)
+                        break
+                    }
+                }
                 _bigGrid.postValue(grid)
             }
         }else{
@@ -106,8 +110,12 @@ class Connect4ViewModel : ViewModel() {
         if(ifposiciocorrecta(rowIndex,columnIndex,2)){
             val currentGrid = _mediumGrid.value
             currentGrid?.let { grid->
-                println("Setting color $color and text \"$text\"")
-                grid[rowIndex][columnIndex] = Pair(color,text)
+                for(i in 5 downTo rowIndex ){
+                    if(ifposiciocorrecta(i,columnIndex,2)){
+                        grid[i][columnIndex] = Pair(color,text)
+                        break
+                    }
+                }
                 _mediumGrid.postValue(grid)
             }
         }else{
@@ -129,11 +137,15 @@ class Connect4ViewModel : ViewModel() {
     //---------------SMALL GRID---------------//
     fun setCellColorLittleGrid(rowIndex: Int, columnIndex: Int, color: Color, text: String) {
 
-        if(ifposiciocorrecta(rowIndex,columnIndex,3) == true){
+        if(ifposiciocorrecta(rowIndex,columnIndex,3)){
             val currentGrid = _littleGrid.value
             currentGrid?.let { grid->
-                println("Setting color $color and text \"$text\"")
-                grid[rowIndex][columnIndex] = Pair(color,text)
+                for(i in 4 downTo rowIndex ){
+                    if(ifposiciocorrecta(i,columnIndex,3)){
+                        grid[i][columnIndex] = Pair(color,text)
+                        break
+                    }
+                }
                 _littleGrid.postValue(grid)
             }
         }else{
