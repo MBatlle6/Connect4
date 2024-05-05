@@ -83,7 +83,7 @@ fun MediumGrid(viewModel: Connect4ViewModel){
                             .clip(CircleShape)
                             .size(59.dp)
                             .padding(3.dp),
-                        colors = ButtonDefaults.buttonColors(viewModel.bigGrid.value!![i][j].first)
+                        colors = ButtonDefaults.buttonColors(viewModel.mediumGrid.value!![i][j].first)
                     ){
                     }
                     j++
@@ -119,7 +119,7 @@ fun LittleGrid(viewModel: Connect4ViewModel){
                             .clip(CircleShape)
                             .size(59.dp)
                             .padding(3.dp),
-                        colors = ButtonDefaults.buttonColors(viewModel.bigGrid.value!![i][j].first)
+                        colors = ButtonDefaults.buttonColors(viewModel.littleGrid.value!![i][j].first)
                     ){
                     }
                     j++

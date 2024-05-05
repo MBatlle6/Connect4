@@ -4,7 +4,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-
+import kotlinx.coroutines.delay
+import kotlin.random.Random
 
 
 class Connect4ViewModel : ViewModel() {
@@ -58,19 +59,25 @@ class Connect4ViewModel : ViewModel() {
     val gameFinished: LiveData<Boolean> = _gameFinished
 
     //mira si la posició on volem ficar la fixa esta lliure
-    fun ifposiciocorrecta(rowIndex: Int, columnIndex: Int,):Boolean{
-        var positionToCheck:String?=  getCellColorBigGrid(rowIndex,columnIndex)
+    fun ifposiciocorrecta(rowIndex: Int, columnIndex: Int,grid:Int):Boolean{
         val w:String = "W"
-        if (positionToCheck == w){return true}
-        else{
-            return false
+        if (grid == 1){
+            var positionToCheck:String?=  getCellColorBigGrid(rowIndex,columnIndex)
+            if (positionToCheck == w){return true}
+        }else if (grid == 2){
+            var positionToCheck:String?=  getCellColorMediumGrid(rowIndex,columnIndex)
+            if (positionToCheck == w){return true}
+        }else if(grid == 3){
+            var positionToCheck:String?=  getCellColorLittleGrid(rowIndex,columnIndex)
+            if (positionToCheck == w){return true}
         }
+        return false
     }
 
     //---------------BIG GRID---------------//
     fun setCellColorBigGrid(rowIndex: Int, columnIndex: Int, color: Color, text: String) {
 
-        if(ifposiciocorrecta(rowIndex,columnIndex) == true){
+        if(ifposiciocorrecta(rowIndex,columnIndex,1) == true){
             val currentGrid = _bigGrid.value
             currentGrid?.let { grid->
                 println("Setting color $color and text \"$text\"")
@@ -96,12 +103,12 @@ class Connect4ViewModel : ViewModel() {
     //---------------MEDIUM GRID---------------//
     fun setCellColorMediumGrid(rowIndex: Int, columnIndex: Int, color: Color, text: String) {
 
-        if(ifposiciocorrecta(rowIndex,columnIndex) == true){
+        if(ifposiciocorrecta(rowIndex,columnIndex,2)){
             val currentGrid = _mediumGrid.value
             currentGrid?.let { grid->
                 println("Setting color $color and text \"$text\"")
                 grid[rowIndex][columnIndex] = Pair(color,text)
-                _bigGrid.postValue(grid)
+                _mediumGrid.postValue(grid)
             }
         }else{
             println("Position $rowIndex $columnIndex incorrecta")
@@ -122,12 +129,12 @@ class Connect4ViewModel : ViewModel() {
     //---------------SMALL GRID---------------//
     fun setCellColorLittleGrid(rowIndex: Int, columnIndex: Int, color: Color, text: String) {
 
-        if(ifposiciocorrecta(rowIndex,columnIndex) == true){
+        if(ifposiciocorrecta(rowIndex,columnIndex,3) == true){
             val currentGrid = _littleGrid.value
             currentGrid?.let { grid->
                 println("Setting color $color and text \"$text\"")
                 grid[rowIndex][columnIndex] = Pair(color,text)
-                _bigGrid.postValue(grid)
+                _littleGrid.postValue(grid)
             }
         }else{
             println("Position $rowIndex $columnIndex incorrecta")
@@ -210,32 +217,79 @@ class Connect4ViewModel : ViewModel() {
         //1 == BigGrid, 2 == MediumGrid, 3 == LittleGrid
         var a_retornar:String? = null
         if(grid == 1){//BigGrid
-            viewModel.setCellColorBigGrid(i, j, Color.Red,"R")
-              a_retornar = getCellColorBigGrid(i,j)
+            if(ifposiciocorrecta(i,j,grid)){
+                viewModel.setCellColorBigGrid(i, j, Color.Red,"R")
+                turnoIA(viewModel,grid)
+            }else{
+                println("Position $i $j incorrecta")
+            }
+            a_retornar = getCellColorBigGrid(i,j)
             if (comprobarsihemguanyatGran()){
-                //_gameFinished.value = true
                 println("Joc Finalitzat")
+                victoria(MainActivity(),viewModel)
             }
         }
         if (grid == 2){//MediumGrid
-            viewModel.setCellColorMediumGrid(i, j, Color.Red,"R")
+            if(ifposiciocorrecta(i,j,grid)){
+                viewModel.setCellColorMediumGrid(i, j, Color.Red,"R")
+                turnoIA(viewModel,grid)
+            }else{
+                println("Position $i $j incorrecta")
+            }
             a_retornar = getCellColorMediumGrid(i,j)
             if (comprobarsihemguanyatMitja()){
-                //_gameFinished.value = true
                 println("Joc Finalitzat")
+                victoria(MainActivity(),viewModel)
             }
-
         }
         if (grid == 3){//LittleGrid
-            viewModel.setCellColorLittleGrid(i, j, Color.Red,"R")
+            if(ifposiciocorrecta(i,j,grid)){
+                viewModel.setCellColorLittleGrid(i, j, Color.Red,"R")
+                turnoIA(viewModel,grid)
+            }else{
+                println("Position $i $j incorrecta")
+            }
             a_retornar = getCellColorLittleGrid(i,j)
             if (comprobarsihemguanyatPetit()){
-                //_gameFinished.value = true
                 println("Joc Finalitzat")
+                victoria(MainActivity(),viewModel)
             }
 
         }
         println("color de la posicio $i,$j = \"$a_retornar\"" )
+
+    }
+
+    fun turnoIA(viewModel: Connect4ViewModel, grid: Int){
+        if (grid == 1){
+            var i = Random.nextInt(0,7)
+            var j = Random.nextInt(0,7)
+            if(ifposiciocorrecta(i,j,grid)){
+                viewModel.setCellColorBigGrid(i,j,Color.Yellow,"Y")
+            }else{
+                turnoIA(viewModel,1)
+            }
+        }
+        if (grid == 2){
+            var i = Random.nextInt(0,6)
+            var j = Random.nextInt(0,6)
+            if(ifposiciocorrecta(i,j,grid)){
+                viewModel.setCellColorMediumGrid(i,j,Color.Yellow,"Y")
+
+            }else{
+                turnoIA(viewModel,2)
+            }
+        }
+        if (grid == 3){
+            var i = Random.nextInt(0,5)
+            var j = Random.nextInt(0,5)
+            if(ifposiciocorrecta(i,j,grid)){
+                viewModel.setCellColorLittleGrid(i,j,Color.Yellow,"Y")
+
+            }else{
+                turnoIA(viewModel,3)
+            }
+        }
     }
     fun comprobarsihemguanyatGran():Boolean{
         val w:String = "W"
@@ -433,6 +487,12 @@ class Connect4ViewModel : ViewModel() {
         }
         return false
     }
-
+    fun victoria(activity: MainActivity,viewModel: Connect4ViewModel){
+        viewModel.addToLog("\n" + activity.getString(R.string.totalTime) + ": " + viewModel.time.value.toString() + " s")
+        viewModel.addToLog("\n" + activity.getString(R.string.timeFinished))
+        viewModel.setGameScreen(false)
+        viewModel.setLogScreen(true)
+        viewModel.setGameFinished(true)
+    }
 
 }
