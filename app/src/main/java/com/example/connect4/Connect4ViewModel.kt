@@ -27,8 +27,8 @@ class Connect4ViewModel : ViewModel() {
     private val _email = MutableLiveData<String>("mbg29@alumnes.udl.cat")
     val email: LiveData<String> = _email
 
-    private val _bigGrid = MutableLiveData<Array<Array<Color>>>(Array(7){ Array(7){Color.White} })
-    val bigGrid: LiveData<Array<Array<Color>>> = _bigGrid
+    private val _bigGrid = MutableLiveData<Array<Array<Pair<Color, String>>>>(Array(7) { Array(7) { Pair(Color.White, "W") } })
+    val bigGrid: LiveData<Array<Array<Pair<Color,String>>>> = _bigGrid
 
     private val _mediumGrid = MutableLiveData<Array<Array<Color>>>(Array(6){ Array(6){Color.White} })
     val mediumGrid: LiveData<Array<Array<Color>>> = _mediumGrid
@@ -57,9 +57,37 @@ class Connect4ViewModel : ViewModel() {
     private val _gameFinished = MutableLiveData<Boolean>(false)
     val gameFinished: LiveData<Boolean> = _gameFinished
 
+    fun ifposiciocorrecta(rowIndex: Int, columnIndex: Int,):Boolean{
+        var positionToCheck:String?=  getCellColorBigGrid(rowIndex,columnIndex)
+        val w:String = "W"
+        if (positionToCheck == w){return true}
+        else{
+            return false
+        }
+    }
 
-    fun setCellColorBigGrid(rowIndex: Int, columnIndex: Int, color: Color) {
-        _bigGrid.value!![rowIndex][columnIndex] = color
+    fun setCellColorBigGrid(rowIndex: Int, columnIndex: Int, color: Color, text: String) {
+
+        if(ifposiciocorrecta(rowIndex,columnIndex) == true){
+            val currentGrid = _bigGrid.value
+            currentGrid?.let { grid->
+                println("Setting color $color and text \"$text\"")
+                grid[rowIndex][columnIndex] = Pair(color,text)
+                _bigGrid.postValue(grid)
+            }
+        }else{
+            println("Position $rowIndex $columnIndex incorrecta")
+        }
+    }
+    fun getCellColorBigGrid(rowIndex: Int,columnIndex: Int): String? {
+        val currentGrid = _bigGrid.value
+        return if (rowIndex >= 0 && rowIndex < 7 && columnIndex >= 0 && columnIndex < 7) {
+            currentGrid?.let { grid ->
+                grid[rowIndex][columnIndex].second
+            }
+        } else {
+            null
+        }
     }
 
     fun setCellColorMediumGrid(rowIndex: Int, columnIndex: Int, color: Color) {
@@ -79,7 +107,7 @@ class Connect4ViewModel : ViewModel() {
         _countdownTime.value = 5
         _log.value = ""
         _alias.value = "Player1"
-        _bigGrid.value = Array(7){ Array(7){Color.White} }
+        _bigGrid.value = Array(7){ Array(7){Pair(Color.White, "W")} }
         _mediumGrid.value = Array(6){ Array(6){Color.White} }
         _littleGrid.value = Array(5){ Array(5){Color.White} }
         _gameFinished.value = false
@@ -133,6 +161,10 @@ class Connect4ViewModel : ViewModel() {
     fun setConfigurationScreen(value: Boolean){
         _configurationScreen.value = value
     }
-
+    fun turnoJugador(i: Int, j:Int ,viewModel: Connect4ViewModel){
+        viewModel.setCellColorBigGrid(i, j, Color.Red,"R")
+        var a_retornar:String?=  getCellColorBigGrid(i,j)
+        println("color de la posicio $i,$j = \"$a_retornar\"" )
+    }
 
 }

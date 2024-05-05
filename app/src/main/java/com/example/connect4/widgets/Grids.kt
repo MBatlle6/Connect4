@@ -39,13 +39,14 @@ fun BigGrid(viewModel: Connect4ViewModel){
                     val columnIndex = j
                     Button(
                         onClick = {
-                            viewModel.setCellColorBigGrid(rowIndex, columnIndex, Color.Red)
+                            viewModel.turnoJugador(rowIndex,columnIndex, viewModel)
+                            //viewModel.setCellColorBigGrid(rowIndex, columnIndex, Color.Red)
                         },
                         modifier = Modifier
                             .clip(CircleShape)
                             .size(59.dp)
                             .padding(3.dp),
-                        colors = ButtonDefaults.buttonColors(viewModel.bigGrid.value!![i][j])
+                        colors = ButtonDefaults.buttonColors(viewModel.bigGrid.value!![i][j].first)
                     ){
                     }
                     j++
@@ -75,7 +76,7 @@ fun MediumGrid(viewModel: Connect4ViewModel){
                     val columnIndex = j
                     Button(
                         onClick = {
-                            viewModel.setCellColorMediumGrid(rowIndex, columnIndex, Color.Red)
+                            viewModel.turnoJugador(rowIndex,columnIndex, viewModel)
                         },
                         modifier = Modifier
                             .clip(CircleShape)

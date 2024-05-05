@@ -181,3 +181,4 @@ fun EmailWrittingButton(viewModel: Connect4ViewModel){
 
     }
 }
+
