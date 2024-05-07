@@ -52,7 +52,7 @@ class Connect4ViewModel : ViewModel() {
     private val _time = MutableLiveData<Int>(0)
     val time: LiveData<Int> = _time
 
-    private val _countdownTime = MutableLiveData<Int>(5)
+    private val _countdownTime = MutableLiveData<Int>(15)
     val countdownTime: LiveData<Int> = _countdownTime
 
     private val _gameFinished = MutableLiveData<Boolean>(false)
@@ -238,7 +238,7 @@ class Connect4ViewModel : ViewModel() {
             a_retornar = getCellColorBigGrid(i,j)
             if (comprobarsihemguanyatGran()){
                 println("Joc Finalitzat")
-                victoria(MainActivity(),viewModel)
+                victoria(MainActivity())
             }
         }
         if (grid == 2){//MediumGrid
@@ -251,7 +251,7 @@ class Connect4ViewModel : ViewModel() {
             a_retornar = getCellColorMediumGrid(i,j)
             if (comprobarsihemguanyatMitja()){
                 println("Joc Finalitzat")
-                victoria(MainActivity(),viewModel)
+                victoria(MainActivity())
             }
         }
         if (grid == 3){//LittleGrid
@@ -264,7 +264,7 @@ class Connect4ViewModel : ViewModel() {
             a_retornar = getCellColorLittleGrid(i,j)
             if (comprobarsihemguanyatPetit()){
                 println("Joc Finalitzat")
-                victoria(MainActivity(),viewModel)
+                victoria(MainActivity())
             }
 
         }
@@ -499,12 +499,12 @@ class Connect4ViewModel : ViewModel() {
         }
         return false
     }
-    fun victoria(activity: MainActivity,viewModel: Connect4ViewModel){
-        viewModel.addToLog("\n" + activity.getString(R.string.totalTime) + ": " + viewModel.time.value.toString() + " s")
-        viewModel.addToLog("\n" + activity.getString(R.string.timeFinished))
-        viewModel.setGameFinished(true)
-        viewModel.setLogScreen(true)
-        viewModel.setGameScreen(false)
+    fun victoria(activity: MainActivity){
+        //addToLog("\n" + activity.getString(R.string.totalTime) + ": " + time.value.toString() + " s")
+        //addToLog("\n" + activity.getString(R.string.timeFinished))
+        setGameFinished(true)
+        setLogScreen(true)
+        setGameScreen(false)
     }
 
 }
