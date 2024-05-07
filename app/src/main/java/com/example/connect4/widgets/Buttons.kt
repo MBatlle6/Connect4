@@ -100,6 +100,12 @@ fun TimeControlButton(viewModel: Connect4ViewModel){
     )
 }
 
+fun logvictoria(viewModel: Connect4ViewModel){//mirar whats amb el miquel
+    viewModel.addToLog("\n" + activity.getString(R.string.totalTime) + ": " + viewModel.time.value.toString() + " s")
+    viewModel.addToLog("\n" + activity.getString(R.string.timeFinished))
+}
+
+
 @Composable
 fun Timer(activity: MainActivity, viewModel: Connect4ViewModel) {
 

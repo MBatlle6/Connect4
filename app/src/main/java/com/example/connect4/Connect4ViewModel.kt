@@ -1,11 +1,14 @@
 package com.example.connect4
 
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.delay
 import kotlin.random.Random
+import com.example.connect4.widgets.logvictoria
+
 
 
 class Connect4ViewModel : ViewModel() {
@@ -238,7 +241,7 @@ class Connect4ViewModel : ViewModel() {
             a_retornar = getCellColorBigGrid(i,j)
             if (comprobarsihemguanyatGran()){
                 println("Joc Finalitzat")
-                victoria(MainActivity())
+                victoria()
             }
         }
         if (grid == 2){//MediumGrid
@@ -251,7 +254,7 @@ class Connect4ViewModel : ViewModel() {
             a_retornar = getCellColorMediumGrid(i,j)
             if (comprobarsihemguanyatMitja()){
                 println("Joc Finalitzat")
-                victoria(MainActivity())
+                victoria()
             }
         }
         if (grid == 3){//LittleGrid
@@ -264,7 +267,7 @@ class Connect4ViewModel : ViewModel() {
             a_retornar = getCellColorLittleGrid(i,j)
             if (comprobarsihemguanyatPetit()){
                 println("Joc Finalitzat")
-                victoria(MainActivity())
+                victoria()
             }
 
         }
@@ -370,6 +373,7 @@ class Connect4ViewModel : ViewModel() {
 
     fun comprobarsihemguanyatMitja():Boolean{
         val w:String = "W"
+        val y:String = "Y"
         //----------matriu mitjana----------
         val currentGrid2 = _mediumGrid.value
         currentGrid2?.let { grid->
@@ -499,7 +503,8 @@ class Connect4ViewModel : ViewModel() {
         }
         return false
     }
-    fun victoria(activity: MainActivity){
+    fun victoria(){
+        logvictoria(Connect4ViewModel() )
         //addToLog("\n" + activity.getString(R.string.totalTime) + ": " + time.value.toString() + " s")
         //addToLog("\n" + activity.getString(R.string.timeFinished))
         setGameFinished(true)
