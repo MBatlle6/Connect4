@@ -100,12 +100,6 @@ fun TimeControlButton(viewModel: Connect4ViewModel){
     )
 }
 
-fun logvictoria(viewModel: Connect4ViewModel){//mirar whats amb el miquel
-    viewModel.addToLog("\n" + activity.getString(R.string.totalTime) + ": " + viewModel.time.value.toString() + " s")
-    viewModel.addToLog("\n" + activity.getString(R.string.timeFinished))
-}
-
-
 @Composable
 fun Timer(activity: MainActivity, viewModel: Connect4ViewModel) {
 
@@ -121,7 +115,7 @@ fun Timer(activity: MainActivity, viewModel: Connect4ViewModel) {
                 viewModel.incrementTime()  //Normal Time
             }
             if(!viewModel.gameFinished.value!!){
-                Toast.makeText(activity,activity.getString(R.string.timeOver),Toast.LENGTH_LONG).show()
+                Toast.makeText(activity,activity.getString(R.string.totalTime),Toast.LENGTH_LONG).show()
                 viewModel.addToLog("\n" + activity.getString(R.string.totalTime) + ": " + viewModel.time.value.toString() + " s")
                 viewModel.addToLog("\n" + activity.getString(R.string.timeFinished))
                 viewModel.setGameScreen(false)
@@ -140,7 +134,11 @@ fun Timer(activity: MainActivity, viewModel: Connect4ViewModel) {
         LaunchedEffect(Unit) {
             while (viewModel.time.value!! < 5000) { //Contador segon 5000 para
                 if(viewModel.gameFinished.value!!){
+                    Toast.makeText(activity,viewModel.resultat.value,Toast.LENGTH_LONG).show()
                     viewModel.addToLog("\n" + activity.getString(R.string.totalTime) + ": " + viewModel.time.value.toString() + " s")
+                    viewModel.addToLog("\n" + viewModel.resultat.value)
+                    viewModel.setGameScreen(false)
+                    viewModel.setLogScreen(true)
                     break
                 }
                 delay(1000L)

@@ -1,14 +1,10 @@
 package com.example.connect4
 
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import kotlinx.coroutines.delay
 import kotlin.random.Random
-import com.example.connect4.widgets.logvictoria
-
 
 
 class Connect4ViewModel : ViewModel() {
@@ -61,6 +57,12 @@ class Connect4ViewModel : ViewModel() {
     private val _gameFinished = MutableLiveData<Boolean>(false)
     val gameFinished: LiveData<Boolean> = _gameFinished
 
+    private val _numeroDeFixes = MutableLiveData<Int>(0)
+    val numeroDeFixes: LiveData<Int> = _numeroDeFixes
+
+    private val _resultat = MutableLiveData<String>("")
+    val resultat: LiveData<String> = _resultat
+
     //mira si la posició on volem ficar la fixa esta lliure
     fun ifposiciocorrecta(rowIndex: Int, columnIndex: Int,grid:Int):Boolean{
         val w:String = "W"
@@ -86,6 +88,7 @@ class Connect4ViewModel : ViewModel() {
                 for(i in 6 downTo rowIndex ){
                     if(ifposiciocorrecta(i,columnIndex,1)){
                         grid[i][columnIndex] = Pair(color,text)
+                        println("Fitxa ficada a la posició $i,$columnIndex ")
                         break
                     }
                 }
@@ -116,6 +119,7 @@ class Connect4ViewModel : ViewModel() {
                 for(i in 5 downTo rowIndex ){
                     if(ifposiciocorrecta(i,columnIndex,2)){
                         grid[i][columnIndex] = Pair(color,text)
+                        println("Fitxa ficada a la posició $i,$columnIndex ")
                         break
                     }
                 }
@@ -146,6 +150,7 @@ class Connect4ViewModel : ViewModel() {
                 for(i in 4 downTo rowIndex ){
                     if(ifposiciocorrecta(i,columnIndex,3)){
                         grid[i][columnIndex] = Pair(color,text)
+                        println("Fitxa ficada a la posició $i,$columnIndex ")
                         break
                     }
                 }
@@ -178,6 +183,7 @@ class Connect4ViewModel : ViewModel() {
         _bigGrid.value = Array(7){ Array(7){Pair(Color.White, "W")} }
         _mediumGrid.value = Array(6){ Array(6){Pair(Color.White, "W")} }
         _littleGrid.value = Array(5){ Array(5){Pair(Color.White, "W")} }
+        _numeroDeFixes.value = 0
         _gameFinished.value = false
     }
 
@@ -230,55 +236,99 @@ class Connect4ViewModel : ViewModel() {
     }
     fun turnoJugador(i: Int, j:Int ,viewModel: Connect4ViewModel,grid:Int){
         //1 == BigGrid, 2 == MediumGrid, 3 == LittleGrid
-        var a_retornar:String? = null
         if(grid == 1){//BigGrid
             if(ifposiciocorrecta(i,j,grid)){
                 viewModel.setCellColorBigGrid(i, j, Color.Red,"R")
+                //per mirar si el tauler esta complet
+                _numeroDeFixes.value = +1
+                if(_numeroDeFixes.value == 49){
+                    if (comprobarsihemguanyatGran()){
+                        println("Joc Finalitzat")
+                        _resultat.value = "Victoria del jugador ROIG"
+                        setGameFinished(true)
+                    }
+                }else{
+                    _resultat.value = "EMPAT"
+                    setGameFinished(true)
+                }
+                if (comprobarsihemguanyatGran()){
+                    println("Joc Finalitzat")
+                    _resultat.value = "Victoria del jugador ROIG"
+                    setGameFinished(true)
+                }
                 turnoIA(viewModel,grid)
+                _numeroDeFixes.value = +1
+                if (comprobarsihemguanyatGran()){
+                    println("Joc Finalitzat")
+                    _resultat.value = "Victoria del jugador GROC"
+                    setGameFinished(true)
+                }
             }else{
-                println("Position $i $j incorrecta")
-            }
-            a_retornar = getCellColorBigGrid(i,j)
-            if (comprobarsihemguanyatGran()){
-                println("Joc Finalitzat")
-                victoria()
+                println("Position $i,$j incorrecta")
             }
         }
+
         if (grid == 2){//MediumGrid
             if(ifposiciocorrecta(i,j,grid)){
                 viewModel.setCellColorMediumGrid(i, j, Color.Red,"R")
+                _numeroDeFixes.value = +1
+                if (comprobarSiHemGuanyatMitja()){
+                    println("Joc Finalitzat")
+                    _resultat.value = "Victoria del jugador ROIG"
+                    setGameFinished(true)
+                }
                 turnoIA(viewModel,grid)
+                _numeroDeFixes.value = +1
+                if (comprobarSiHemGuanyatMitja()){
+                    println("Joc Finalitzat")
+                    _resultat.value = "Victoria del jugador GROC"
+                    setGameFinished(true)
+                }
             }else{
-                println("Position $i $j incorrecta")
+                println("Position $i,$j incorrecta")
             }
-            a_retornar = getCellColorMediumGrid(i,j)
-            if (comprobarsihemguanyatMitja()){
-                println("Joc Finalitzat")
-                victoria()
+            if(_numeroDeFixes.value == 36){
+                setGameFinished(true)
+                _resultat.value = "ningú, EMPAT"
             }
         }
+
         if (grid == 3){//LittleGrid
             if(ifposiciocorrecta(i,j,grid)){
                 viewModel.setCellColorLittleGrid(i, j, Color.Red,"R")
+                _numeroDeFixes.value = +1
+                if(_numeroDeFixes.value == 49){
+                    if (comprobarsihemguanyatPetit()){
+                        println("Joc Finalitzat")
+                        _resultat.value = "Victoria del jugador ROIG"
+                        setGameFinished(true)
+                    }
+                }else{
+                    _resultat.value = "EMPAT"
+                    setGameFinished(true)
+                }
+                if (comprobarsihemguanyatPetit()){
+                    println("Joc Finalitzat")
+                    _resultat.value = "Vicotira del jugador ROIG"
+                    setGameFinished(true)
+                }
                 turnoIA(viewModel,grid)
+                _numeroDeFixes.value = +1
+                if (comprobarsihemguanyatPetit()){
+                    println("Joc Finalitzat")
+                    _resultat.value = "Vicotira del jugador GROC"
+                    setGameFinished(true)
+                }
             }else{
-                println("Position $i $j incorrecta")
+                println("Position $i,$j incorrecta")
             }
-            a_retornar = getCellColorLittleGrid(i,j)
-            if (comprobarsihemguanyatPetit()){
-                println("Joc Finalitzat")
-                victoria()
-            }
-
         }
-        println("color de la posicio $i,$j = \"$a_retornar\"" )
-
     }
 
-    fun turnoIA(viewModel: Connect4ViewModel, grid: Int){
+    private fun turnoIA(viewModel: Connect4ViewModel, grid: Int){
         if (grid == 1){
-            var i = Random.nextInt(0,7)
-            var j = Random.nextInt(0,7)
+            val i = Random.nextInt(0,7)
+            val j = Random.nextInt(0,7)
             if(ifposiciocorrecta(i,j,grid)){
                 viewModel.setCellColorBigGrid(i,j,Color.Yellow,"Y")
             }else{
@@ -286,8 +336,8 @@ class Connect4ViewModel : ViewModel() {
             }
         }
         if (grid == 2){
-            var i = Random.nextInt(0,6)
-            var j = Random.nextInt(0,6)
+            val i = Random.nextInt(0,6)
+            val j = Random.nextInt(0,6)
             if(ifposiciocorrecta(i,j,grid)){
                 viewModel.setCellColorMediumGrid(i,j,Color.Yellow,"Y")
 
@@ -296,8 +346,8 @@ class Connect4ViewModel : ViewModel() {
             }
         }
         if (grid == 3){
-            var i = Random.nextInt(0,5)
-            var j = Random.nextInt(0,5)
+            val i = Random.nextInt(0,5)
+            val j = Random.nextInt(0,5)
             if(ifposiciocorrecta(i,j,grid)){
                 viewModel.setCellColorLittleGrid(i,j,Color.Yellow,"Y")
 
@@ -306,7 +356,7 @@ class Connect4ViewModel : ViewModel() {
             }
         }
     }
-    fun comprobarsihemguanyatGran():Boolean{
+    private fun comprobarsihemguanyatGran():Boolean{
         val w:String = "W"
         val currentGrid = _bigGrid.value
         //----------matriu gran----------
@@ -371,15 +421,14 @@ class Connect4ViewModel : ViewModel() {
         return false
     }
 
-    fun comprobarsihemguanyatMitja():Boolean{
+    private fun comprobarSiHemGuanyatMitja():Boolean{
         val w:String = "W"
-        val y:String = "Y"
         //----------matriu mitjana----------
         val currentGrid2 = _mediumGrid.value
         currentGrid2?.let { grid->
             //verificar files
             var positionToCheck:String?
-            // mirem files
+            // mire files
             for (row in 0 until 6) {
                 for (col in 0 until 3) {
                     if (grid[row][col].second == grid[row][col + 1].second &&
@@ -393,7 +442,7 @@ class Connect4ViewModel : ViewModel() {
                 }
             }
 
-            // mirem columnes
+            // mire columnes
             for (col in 0 until 6) {
                 for (row in 0 until 3) {
                     if (grid[row][col].second == grid[row + 1][col].second &&
@@ -438,14 +487,14 @@ class Connect4ViewModel : ViewModel() {
         return false
     }
 
-    fun comprobarsihemguanyatPetit():Boolean{
+    private fun comprobarsihemguanyatPetit():Boolean{
         val w:String = "W"
         //----------matriu petita----------
         val currentGrid3 = _littleGrid.value
         currentGrid3?.let { grid->
             //verificar files
             var positionToCheck:String?
-            // mirem files
+            // mire files
             for (row in 0 until 5) {
                 for (col in 0 until 2) {
                     if (grid[row][col].second == grid[row][col + 1].second &&
@@ -459,7 +508,7 @@ class Connect4ViewModel : ViewModel() {
                 }
             }
 
-            // mirem columnes
+            // mire columnes
             for (col in 0 until 5) {
                 for (row in 0 until 2) {
                     if (grid[row][col].second == grid[row + 1][col].second &&
@@ -503,13 +552,4 @@ class Connect4ViewModel : ViewModel() {
         }
         return false
     }
-    fun victoria(){
-        logvictoria(Connect4ViewModel() )
-        //addToLog("\n" + activity.getString(R.string.totalTime) + ": " + time.value.toString() + " s")
-        //addToLog("\n" + activity.getString(R.string.timeFinished))
-        setGameFinished(true)
-        setLogScreen(true)
-        setGameScreen(false)
-    }
-
 }
