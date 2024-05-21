@@ -3,13 +3,16 @@ package com.example.connect4.widgets
 import android.widget.Toast
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Email
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
@@ -40,6 +43,7 @@ fun AliasWrittingButton(activity: MainActivity, viewModel: Connect4ViewModel){
         leadingIcon = {
             Icon(imageVector = Icons.Filled.AccountCircle, contentDescription = "")
         },
+        isError = viewModel.alias.value == "",
         value = viewModel.alias.value!!,
         onValueChange = {
             if(it.length < 13) viewModel.setAlias(it)
@@ -183,6 +187,25 @@ fun EmailWrittingButton(viewModel: Connect4ViewModel){
     LaunchedEffect(Unit) {
         focusRequester.requestFocus()
 
+    }
+}
+
+@Composable
+fun SettingsButton(viewModel: Connect4ViewModel, fromMainMenu: Boolean){
+    IconButton(
+        onClick = {
+            if(fromMainMenu) viewModel.setFromMainMenu(true)
+            else viewModel.setFromMainMenu(false)
+            viewModel.setMainMenu(false)
+            viewModel.setLogScreen(false)
+            viewModel.setConfigurationScreen(true)
+        }
+    ) {
+        Icon(
+            imageVector = Icons.Filled.Settings,
+            contentDescription = "Settings",
+            modifier = Modifier.size(48.dp),
+        )
     }
 }
 

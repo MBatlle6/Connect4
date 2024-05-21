@@ -36,7 +36,7 @@ class Connect4ViewModel : ViewModel() {
     private val _littleGrid = MutableLiveData<Array<Array<Pair<Color, String>>>>(Array(5) { Array(5) { Pair(Color.White, "W") } })
     val littleGrid: LiveData<Array<Array<Pair<Color,String>>>> = _littleGrid
 
-    private val _gridSize = MutableLiveData<Int>(6)
+    private val _gridSize = MutableLiveData<Int>(5)
     val gridSize: LiveData<Int> = _gridSize
 
     private val _timeControl = MutableLiveData<Boolean>(false)
@@ -57,11 +57,32 @@ class Connect4ViewModel : ViewModel() {
     private val _gameFinished = MutableLiveData<Boolean>(false)
     val gameFinished: LiveData<Boolean> = _gameFinished
 
+    private val _fromMainMenu = MutableLiveData<Boolean>(false)
+    val fromMainMenu: LiveData<Boolean> = _fromMainMenu
+
+    private val _fromLogScreen = MutableLiveData<Boolean>(false)
+    val fromLogScreen: LiveData<Boolean> = _fromLogScreen
+
+    private val _logWritten = MutableLiveData<Boolean>(false)
+    val logWritten: LiveData<Boolean> = _logWritten
+
     private val _numeroDeFixes = MutableLiveData<Int>(0)
     val numeroDeFixes: LiveData<Int> = _numeroDeFixes
 
     private val _resultat = MutableLiveData<String>("")
     val resultat: LiveData<String> = _resultat
+
+    fun setLogWritten(value: Boolean){
+        _logWritten.value = value
+    }
+
+    fun setFromMainMenu(value: Boolean){
+        _fromMainMenu.value = value
+    }
+
+    fun setFromLogScreen(value: Boolean){
+        _fromLogScreen.value = value
+    }
 
     //mira si la posició on volem ficar la fixa esta lliure
     fun ifposiciocorrecta(rowIndex: Int, columnIndex: Int,grid:Int):Boolean{
@@ -179,12 +200,12 @@ class Connect4ViewModel : ViewModel() {
         _time.value = 0
         _countdownTime.value = 5
         _log.value = ""
-        _alias.value = "Player1"
         _bigGrid.value = Array(7){ Array(7){Pair(Color.White, "W")} }
         _mediumGrid.value = Array(6){ Array(6){Pair(Color.White, "W")} }
         _littleGrid.value = Array(5){ Array(5){Pair(Color.White, "W")} }
         _numeroDeFixes.value = 0
         _gameFinished.value = false
+        _logWritten.value = false
     }
 
     fun incrementTime(){

@@ -4,8 +4,6 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.compose.setContent
-import androidx.activity.result.ActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
@@ -24,7 +22,7 @@ class MainActivity : ComponentActivity() {
 
     private val onBackPressedCallback = object : OnBackPressedCallback(true){  //Gestionar cuanda el user hace return
         override fun handleOnBackPressed() {
-            backAction(viewModel)
+            backAction(viewModel,this@MainActivity)
         }
     }
 
@@ -52,6 +50,9 @@ class MainActivity : ComponentActivity() {
             viewModel.bigGrid.observeAsState().value
             viewModel.mediumGrid.observeAsState().value
             viewModel.littleGrid.observeAsState().value
+            viewModel.fromMainMenu.observeAsState().value
+            viewModel.fromLogScreen.observeAsState().value
+            viewModel.logWritten.observeAsState().value
 
             Connect4Theme {
                 // A surface container using the 'background' color from the theme
@@ -68,12 +69,29 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
-
 }
-fun backAction(viewModel: Connect4ViewModel) {
+fun backAction(viewModel: Connect4ViewModel, activity: MainActivity) {
+    if(viewModel.alias.value == ""){
+        return
+    }
     if(viewModel.helpScreen.value == true){
         viewModel.setHelpScreen(false)
         viewModel.setMainMenu(true)
+        return
+    }
+    if(viewModel.configurationScreen.value == true){
+        if(viewModel.fromMainMenu.value == true){
+            viewModel.setConfigurationScreen(false)
+            viewModel.setMainMenu(true)
+            viewModel.setFromMainMenu(false)
+        }
+        else{
+            viewModel.setConfigurationScreen(false)
+            viewModel.setLogScreen(true)
+            viewModel.setFromLogScreen(false)
+        }
+    }
+    else{
+        activity.finish()
     }
 }
-

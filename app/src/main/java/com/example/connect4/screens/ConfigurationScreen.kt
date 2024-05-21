@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Build
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Button
@@ -30,6 +31,7 @@ import androidx.compose.ui.unit.sp
 import com.example.connect4.Connect4ViewModel
 import com.example.connect4.MainActivity
 import com.example.connect4.R
+import com.example.connect4.backAction
 import com.example.connect4.widgets.AliasWrittingButton
 import com.example.connect4.widgets.BigGridButton
 import com.example.connect4.widgets.LittleGridButton
@@ -117,13 +119,13 @@ private fun PhonePortrait(activity: MainActivity, viewModel: Connect4ViewModel){
             ) {
                 Button(
                     onClick = {
-                        viewModel.setConfigurationScreen(false)
-                        viewModel.setGameScreen(true)
-                        viewModel.addToLog(activity.getString(R.string.alias) + ": " + viewModel.alias.value!!)
-                        viewModel.addToLog(" " + activity.getString(R.string.gridSize) + ": " + viewModel.gridSize.value!!  )
+                        if (viewModel.alias.value != ""){
+                            backAction(viewModel, activity)
+                        }
                     }
                 ) {
-                    Text(text = activity.getString(R.string.start))
+                    Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "ArrowBack")
+                    Text(text = activity.getString(R.string.goToGame))
                 }
             }
 
@@ -195,13 +197,13 @@ private fun PhoneLandscape(activity: MainActivity, viewModel: Connect4ViewModel)
             ) {
                 Button(
                     onClick = {
-                        viewModel.setConfigurationScreen(false)
-                        viewModel.setGameScreen(true)
-                        viewModel.addToLog(activity.getString(R.string.alias) + ": " + viewModel.alias.value!!)
-                        viewModel.addToLog(" " + activity.getString(R.string.gridSize) + ": " + viewModel.gridSize.value!!  )
+                        if (viewModel.alias.value != ""){
+                            backAction(viewModel, activity)
+                        }
                     }
                 ) {
-                    Text(text = activity.getString(R.string.start))
+                    Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "ArrowBack")
+                    Text(text = activity.getString(R.string.goToGame))
                 }
             }
 

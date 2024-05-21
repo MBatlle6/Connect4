@@ -38,6 +38,7 @@ import com.example.connect4.Connect4ViewModel
 import com.example.connect4.MainActivity
 import com.example.connect4.R
 import com.example.connect4.widgets.EmailWrittingButton
+import com.example.connect4.widgets.SettingsButton
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
@@ -86,6 +87,8 @@ private fun PhonePortrait(activity: MainActivity, viewModel: Connect4ViewModel){
                 fontSize = 40.sp,
                 maxLines = 1
             )
+            Spacer(modifier = Modifier.weight(1f))
+            SettingsButton(viewModel = viewModel, false)
         }
         Spacer(modifier = Modifier.height(50.dp))
         Column(modifier = Modifier.padding(10.dp, 0.dp))
@@ -147,11 +150,11 @@ private fun PhonePortrait(activity: MainActivity, viewModel: Connect4ViewModel){
                 Button(
                     onClick = {
                         viewModel.setLogScreen(false)
-                        viewModel.setConfigurationScreen(true)
+                        viewModel.setGameScreen(true)
                         viewModel.resetGame()
                     },
                 ) {
-                    Icon(imageVector = Icons.Filled.ArrowBack, contentDescription = "Close")
+                    Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Close")
                     Text(text = activity.getString(R.string.newGame))
 
                 }
@@ -197,6 +200,8 @@ private fun PhoneLandscape(activity: MainActivity, viewModel: Connect4ViewModel)
                 verticalArrangement = Arrangement.Center,
                 modifier = Modifier.padding(35.dp)
             ){
+                SettingsButton(viewModel = viewModel, false)
+                Spacer(modifier = Modifier.weight(1f))
                 Button(
                     onClick =
                     {
@@ -217,7 +222,7 @@ private fun PhoneLandscape(activity: MainActivity, viewModel: Connect4ViewModel)
                 Button(
                     onClick = {
                         viewModel.setLogScreen(false)
-                        viewModel.setConfigurationScreen(true)
+                        viewModel.setGameScreen(true)
                         viewModel.resetGame()
                     },
                 ) {
@@ -272,8 +277,6 @@ private fun PhoneLandscape(activity: MainActivity, viewModel: Connect4ViewModel)
             EmailWrittingButton(viewModel = viewModel)
 
         }
-
-
 
     }
 }

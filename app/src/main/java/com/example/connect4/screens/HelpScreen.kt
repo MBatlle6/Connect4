@@ -34,11 +34,11 @@ import com.example.connect4.R
 @Composable
 fun HelpScreen(activity: MainActivity, viewModel: Connect4ViewModel){
 
-    val windowSizeClass = calculateWindowSizeClass(activity = activity)
-    if (windowSizeClass.widthSizeClass == WindowWidthSizeClass.Compact){
+    val windowSizeClass = calculateWindowSizeClass(activity = activity)  //Agafes mida de la pantalla a la variable windowSizeClass
+    if (windowSizeClass.widthSizeClass == WindowWidthSizeClass.Compact){ //Aquí el height és compacte, per tant, orientació portrait
         PhonePortrait(activity = activity, viewModel = viewModel)
     }
-    if (windowSizeClass.heightSizeClass == WindowHeightSizeClass.Compact){
+    if (windowSizeClass.heightSizeClass == WindowHeightSizeClass.Compact){ //Aquí el width és compacte, per tant, orientació landscape
         PhoneLandscape(activity = activity, viewModel = viewModel)
     }
 }

@@ -34,6 +34,13 @@ import com.example.connect4.widgets.Timer
 @Composable
 fun GameScreen(activity: MainActivity, viewModel: Connect4ViewModel){
 
+    if (viewModel.logWritten.value == false){
+        viewModel.addToLog(activity.getString(R.string.alias) + ": " + viewModel.alias.value!!)
+        viewModel.addToLog(" " + activity.getString(R.string.gridSize) + ": " + viewModel.gridSize.value!!)
+        viewModel.setLogWritten(true)
+    }
+
+
     val windowSizeClass = calculateWindowSizeClass(activity = activity)
     if (windowSizeClass.widthSizeClass == WindowWidthSizeClass.Compact){
         PhonePortrait(activity = activity, viewModel = viewModel)
