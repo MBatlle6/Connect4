@@ -45,7 +45,7 @@ fun BigGrid(viewModel: Connect4ViewModel){
                         },
                         modifier = Modifier
                             .clip(CircleShape)
-                            .size(59.dp)
+                            .size(45.dp)
                             .padding(3.dp),
                         colors = ButtonDefaults.buttonColors(viewModel.bigGrid.value!![i][j].first)
                     ){
@@ -117,7 +117,7 @@ fun LittleGrid(viewModel: Connect4ViewModel){
                         },
                         modifier = Modifier
                             .clip(CircleShape)
-                            .size(59.dp)
+                            .size(70.dp)
                             .padding(3.dp),
                         colors = ButtonDefaults.buttonColors(viewModel.littleGrid.value!![i][j].first)
                     ){
