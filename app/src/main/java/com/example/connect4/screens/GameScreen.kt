@@ -17,42 +17,56 @@ import androidx.compose.material3.windowsizeclass.WindowHeightSizeClass
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.asLiveData
 import com.example.connect4.Connect4ViewModel
 import com.example.connect4.MainActivity
 import com.example.connect4.R
+import com.example.connect4.data.SettingsDataStore
 import com.example.connect4.widgets.BigGrid
 import com.example.connect4.widgets.LittleGrid
 import com.example.connect4.widgets.MediumGrid
 import com.example.connect4.widgets.Timer
+import kotlinx.coroutines.flow.first
 
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 @Composable
-fun GameScreen(activity: MainActivity, viewModel: Connect4ViewModel){
+fun GameScreen(activity: MainActivity, viewModel: Connect4ViewModel, settingsDataStore: SettingsDataStore){
+    val gridSizeState = settingsDataStore.preferenceFlowGridSize.asLiveData().observeAsState()
+    val aliasState = settingsDataStore.preferenceFlowAlias.asLiveData().observeAsState()
 
-    if (viewModel.logWritten.value == false){
-        viewModel.addToLog(activity.getString(R.string.alias) + ": " + viewModel.alias.value!!)
-        viewModel.addToLog(" " + activity.getString(R.string.gridSize) + ": " + viewModel.gridSize.value!!)
+    if (viewModel.logWritten.value == false &&
+        gridSizeState.value != null &&
+        aliasState.value != null
+    )
+    {
+        viewModel.addToLog(activity.getString(R.string.alias) + ": " + aliasState.value!!)
+        viewModel.addToLog(" " + activity.getString(R.string.gridSize) + ": " + gridSizeState.value!!)
         viewModel.setLogWritten(true)
     }
 
 
     val windowSizeClass = calculateWindowSizeClass(activity = activity)
     if (windowSizeClass.widthSizeClass == WindowWidthSizeClass.Compact){
-        PhonePortrait(activity = activity, viewModel = viewModel)
+        PhonePortrait(activity = activity, viewModel = viewModel, gridSizeState, settingsDataStore)
     }
     if (windowSizeClass.heightSizeClass == WindowHeightSizeClass.Compact){
-        PhoneLandscape(activity = activity, viewModel = viewModel)
+        PhoneLandscape(activity = activity, viewModel = viewModel, gridSizeState, settingsDataStore)
     }
 }
 
 
+
+
 @Composable
-private fun PhonePortrait(activity: MainActivity, viewModel: Connect4ViewModel){
+private fun PhonePortrait(activity: MainActivity, viewModel: Connect4ViewModel, gridSizeState: State<Int?>, settingsDataStore: SettingsDataStore){
     Column()
     {
         Row(
@@ -67,16 +81,16 @@ private fun PhonePortrait(activity: MainActivity, viewModel: Connect4ViewModel){
                 contentDescription = "Clock",
             )
             Spacer(modifier = Modifier.width(20.dp))
-            Timer(activity = activity, viewModel = viewModel)
+            Timer(activity = activity, viewModel = viewModel, settingsDataStore)
         }
         Column(
             modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Bottom
         ) {
-            if (viewModel.gridSize.value == 5) LittleGrid(viewModel = viewModel)
-            else if (viewModel.gridSize.value == 6) MediumGrid(viewModel = viewModel)
-            else BigGrid(viewModel = viewModel)
+            if (gridSizeState.value == 5) LittleGrid(viewModel = viewModel)
+            if (gridSizeState.value == 6) MediumGrid(viewModel = viewModel)
+            if(gridSizeState.value == 7) BigGrid(viewModel = viewModel)
 
         }
 
@@ -84,7 +98,7 @@ private fun PhonePortrait(activity: MainActivity, viewModel: Connect4ViewModel){
 }
 
 @Composable
-private fun PhoneLandscape(activity: MainActivity, viewModel: Connect4ViewModel){
+private fun PhoneLandscape(activity: MainActivity, viewModel: Connect4ViewModel, gridSizeState: State<Int?>, settingsDataStore: SettingsDataStore){
     Row()
     {
         Row(
@@ -99,17 +113,16 @@ private fun PhoneLandscape(activity: MainActivity, viewModel: Connect4ViewModel)
                 contentDescription = "Clock",
             )
             Spacer(modifier = Modifier.width(20.dp))
-            Timer(activity = activity, viewModel = viewModel)
+            Timer(activity = activity, viewModel = viewModel, settingsDataStore)
         }
         Column(
             modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Bottom
         ) {
-            if (viewModel.gridSize.value == 5) LittleGrid(viewModel = viewModel)
-            else if (viewModel.gridSize.value == 6) MediumGrid(viewModel = viewModel)
-            else BigGrid(viewModel = viewModel)
-
+            if (gridSizeState.value == 5) LittleGrid(viewModel = viewModel)
+            if (gridSizeState.value == 6) MediumGrid(viewModel = viewModel)
+            if(gridSizeState.value == 7) BigGrid(viewModel = viewModel)
         }
 
     }

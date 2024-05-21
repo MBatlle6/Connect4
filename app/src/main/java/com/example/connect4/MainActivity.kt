@@ -10,6 +10,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.asLiveData
+import com.example.connect4.data.SettingsDataStore
 import com.example.connect4.screens.ConfigurationScreen
 import com.example.connect4.screens.GameScreen
 import com.example.connect4.screens.HelpScreen
@@ -22,14 +24,20 @@ class MainActivity : ComponentActivity() {
 
     private val onBackPressedCallback = object : OnBackPressedCallback(true){  //Gestionar cuanda el user hace return
         override fun handleOnBackPressed() {
-            backAction(viewModel,this@MainActivity)
+            backAction(viewModel,this@MainActivity, settingsDataStore)
         }
     }
 
     private val viewModel by viewModels<Connect4ViewModel>()
 
+    lateinit var settingsDataStore: SettingsDataStore
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        settingsDataStore = SettingsDataStore(this)
 
         onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
         setContent {
@@ -39,7 +47,6 @@ class MainActivity : ComponentActivity() {
             viewModel.gameScreen.observeAsState().value
             viewModel.logScreen.observeAsState().value
             viewModel.alias.observeAsState().value
-            viewModel.gridSize.observeAsState().value
             viewModel.timeControl.observeAsState().value
             viewModel.time.observeAsState().value
             viewModel.time.observeAsState().value
@@ -62,15 +69,25 @@ class MainActivity : ComponentActivity() {
                 ) {
                     if(viewModel.mainMenu.value == true) MainMenu(this, viewModel)
                     else if(viewModel.helpScreen.value == true) HelpScreen(this, viewModel)
-                    else if (viewModel.configurationScreen.value == true) ConfigurationScreen(this, viewModel)
-                    else if(viewModel.gameScreen.value == true) GameScreen(this, viewModel)
+                    else if (viewModel.configurationScreen.value == true) ConfigurationScreen(this, viewModel, settingsDataStore)
+                    else if(viewModel.gameScreen.value == true) GameScreen(this, viewModel, settingsDataStore)
                     else LogScreen(this, viewModel)
                 }
             }
         }
     }
 }
-fun backAction(viewModel: Connect4ViewModel, activity: MainActivity) {
+fun backAction(viewModel: Connect4ViewModel, activity: MainActivity, settingsDataStore: SettingsDataStore) {
+
+    settingsDataStore.preferenceFlowAlias.asLiveData().observe(activity) {
+        if (it == "") {
+            viewModel.setAlias("")
+        }
+        else{
+            viewModel.setAlias(it)
+        }
+    }
+
     if(viewModel.alias.value == ""){
         return
     }

@@ -4,6 +4,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.connect4.data.SettingsDataStore
+import kotlinx.coroutines.launch
 import kotlin.random.Random
 
 
@@ -36,10 +39,7 @@ class Connect4ViewModel : ViewModel() {
     private val _littleGrid = MutableLiveData<Array<Array<Pair<Color, String>>>>(Array(5) { Array(5) { Pair(Color.White, "W") } })
     val littleGrid: LiveData<Array<Array<Pair<Color,String>>>> = _littleGrid
 
-    private val _gridSize = MutableLiveData<Int>(5)
-    val gridSize: LiveData<Int> = _gridSize
-
-    private val _timeControl = MutableLiveData<Boolean>(false)
+    private val _timeControl = MutableLiveData<Boolean>(true)
     val timeControl: LiveData<Boolean> = _timeControl
 
     private val _gameScreen = MutableLiveData<Boolean>(false)
@@ -227,10 +227,6 @@ class Connect4ViewModel : ViewModel() {
 
     fun setTimeControl(value: Boolean){
         _timeControl.value = value
-    }
-
-    fun setGridSize(size: Int){
-        _gridSize.value = size
     }
 
     fun setAlias(value: String){
