@@ -12,6 +12,7 @@
     <string name="alias">Alias</string>
     <string name="gridSize">Tamaño tablero</string>
     <string name="timeControl">Control del tiempo</string>
+    <string name="withoutTimeControl">Sin control del tiempo</string>
     <string name="start">Empezar</string>
     <string name="timeOver">Se ha acabado el tiempo !!</string>
     <string name="results">Resultados</string>
@@ -22,5 +23,8 @@
     <string name="recipientEmail">E-mail destinatario</string>
     <string name="sendEmail">Enviar e-mail</string>
     <string name="newGame">Nueva partida</string>
+    <string name="occupiedCell">Casilla ocupada: </string>
+    <string name="remainingTime">Tiempo restante: </string>
+    <string name="moveTime">Tiempo de tirada: </string>
 
 </resources>

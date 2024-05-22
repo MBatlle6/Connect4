@@ -41,6 +41,9 @@ fun HelpScreen(activity: MainActivity, viewModel: Connect4ViewModel){
     if (windowSizeClass.heightSizeClass == WindowHeightSizeClass.Compact){ //Aquí el width és compacte, per tant, orientació landscape
         PhoneLandscape(activity = activity, viewModel = viewModel)
     }
+    else{
+        PhonePortrait(activity = activity, viewModel = viewModel)
+    }
 }
 
 

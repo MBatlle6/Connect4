@@ -50,6 +50,9 @@ fun ConfigurationScreen(activity: MainActivity, viewModel: Connect4ViewModel, se
     if (windowSizeClass.heightSizeClass == WindowHeightSizeClass.Compact){
         PhoneLandscape(activity = activity, viewModel = viewModel, settingsDataStore)
     }
+    else{
+        PhonePortrait(activity = activity, viewModel = viewModel, settingsDataStore)
+    }
 
 
 }

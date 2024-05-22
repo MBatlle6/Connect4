@@ -12,18 +12,23 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.asLiveData
 import com.example.connect4.Connect4ViewModel
+import com.example.connect4.MainActivity
+import com.example.connect4.R
+import com.example.connect4.data.SettingsDataStore
 
 
 private var i = 0
 private var j = 0
 
 @Composable
-fun BigGrid(viewModel: Connect4ViewModel){
+fun BigGrid(viewModel: Connect4ViewModel, activity: MainActivity, settingsDataStore: SettingsDataStore){
     Column(
         modifier = Modifier
             .background(Color(0xFF0A1172)),
@@ -37,8 +42,22 @@ fun BigGrid(viewModel: Connect4ViewModel){
                 repeat(7) {
                     val rowIndex = i
                     val columnIndex = j
+                    val timeControlState = settingsDataStore.preferenceFlowTimeControl.asLiveData().observeAsState()
                     Button(
                         onClick = {
+                            if (timeControlState.value!!){
+                                viewModel.addToGameLog(
+                                    activity.getString(R.string.moveTime) + viewModel.time.value!! + "\n" +
+                                            activity.getString(R.string.remainingTime) + viewModel.countdownTime.value!! + "\n" +
+                                            activity.getString(R.string.occupiedCell) + "(${rowIndex + 1},${columnIndex + 1})"
+                                )
+                            }
+                            else{
+                                viewModel.addToGameLog(
+                                    activity.getString(R.string.moveTime) + viewModel.time.value!! + "\n" +
+                                            activity.getString(R.string.occupiedCell) + "(${rowIndex + 1},${columnIndex + 1})"
+                                )
+                            }
                             //PER PASSAR LA GRID ES POT FER QUE ES PASSI PER PARAMETRE AL TURNOJUGADOR
                             viewModel.turnoJugador(rowIndex,columnIndex, viewModel,1)
                             //viewModel.setCellColorBigGrid(rowIndex, columnIndex, Color.Red)
@@ -61,7 +80,7 @@ fun BigGrid(viewModel: Connect4ViewModel){
 }
 
 @Composable
-fun MediumGrid(viewModel: Connect4ViewModel){
+fun MediumGrid(viewModel: Connect4ViewModel, activity: MainActivity, settingsDataStore: SettingsDataStore){
     Column(
         modifier = Modifier
             .background(Color(0xFF0A1172)),
@@ -75,8 +94,22 @@ fun MediumGrid(viewModel: Connect4ViewModel){
                 repeat(6) {
                     val rowIndex = i
                     val columnIndex = j
+                    val timeControlState = settingsDataStore.preferenceFlowTimeControl.asLiveData().observeAsState()
                     Button(
                         onClick = {
+                            if (timeControlState.value!!){
+                                viewModel.addToGameLog(
+                                    activity.getString(R.string.moveTime) + viewModel.time.value!! + "\n" +
+                                            activity.getString(R.string.remainingTime) + viewModel.countdownTime.value!! + "\n" +
+                                            activity.getString(R.string.occupiedCell) + "(${rowIndex + 1},${columnIndex + 1})"
+                                )
+                            }
+                            else{
+                                viewModel.addToGameLog(
+                                    activity.getString(R.string.moveTime) + viewModel.time.value!! + "\n" +
+                                            activity.getString(R.string.occupiedCell) + "(${rowIndex + 1},${columnIndex + 1})"
+                                )
+                            }
                             viewModel.turnoJugador(rowIndex,columnIndex, viewModel,2)
                         },
                         modifier = Modifier
@@ -97,7 +130,7 @@ fun MediumGrid(viewModel: Connect4ViewModel){
 }
 
 @Composable
-fun LittleGrid(viewModel: Connect4ViewModel){
+fun LittleGrid(viewModel: Connect4ViewModel, activity: MainActivity, settingsDataStore: SettingsDataStore){
     Column(
         modifier = Modifier
             .background(Color(0xFF0A1172)),
@@ -111,8 +144,22 @@ fun LittleGrid(viewModel: Connect4ViewModel){
                 repeat(5) {
                     val rowIndex = i
                     val columnIndex = j
+                    val timeControlState = settingsDataStore.preferenceFlowTimeControl.asLiveData().observeAsState()
                     Button(
                         onClick = {
+                            if (timeControlState.value!!){
+                                viewModel.addToGameLog(
+                                    activity.getString(R.string.moveTime) + viewModel.time.value!! + "\n" +
+                                            activity.getString(R.string.remainingTime) + viewModel.countdownTime.value!! + "\n" +
+                                            activity.getString(R.string.occupiedCell) + "(${rowIndex + 1},${columnIndex + 1})"
+                                )
+                            }
+                            else{
+                                viewModel.addToGameLog(
+                                    activity.getString(R.string.moveTime) + viewModel.time.value!! + "\n" +
+                                            activity.getString(R.string.occupiedCell) + "(${rowIndex + 1},${columnIndex + 1})"
+                                )
+                            }
                             viewModel.turnoJugador(rowIndex,columnIndex, viewModel,3)
                         },
                         modifier = Modifier

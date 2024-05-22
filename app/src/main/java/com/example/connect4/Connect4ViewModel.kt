@@ -27,6 +27,9 @@ class Connect4ViewModel : ViewModel() {
     private val _log = MutableLiveData<String>("")
     val log: LiveData<String> = _log
 
+    private val _gameLog = MutableLiveData<String>("")
+    val gameLog: LiveData<String> = _gameLog
+
     private val _email = MutableLiveData<String>("mbg29@alumnes.udl.cat")
     val email: LiveData<String> = _email
 
@@ -200,6 +203,7 @@ class Connect4ViewModel : ViewModel() {
     fun resetGame(){
         _time.value = 0
         _countdownTime.value = 5
+        _gameLog.value = ""
         _log.value = ""
         _bigGrid.value = Array(7){ Array(7){Pair(Color.White, "W")} }
         _mediumGrid.value = Array(6){ Array(6){Pair(Color.White, "W")} }
@@ -221,6 +225,7 @@ class Connect4ViewModel : ViewModel() {
         _logScreen.value = value
     }
 
+
     fun setGameScreen(value: Boolean){
         _gameScreen.value = value
     }
@@ -239,6 +244,10 @@ class Connect4ViewModel : ViewModel() {
 
     fun addToLog(value: String){
         _log.value += value
+    }
+
+    fun addToGameLog(value: String){
+        _gameLog.value = _gameLog.value +"\n" + "\n" + value
     }
 
     fun setMainMenu(value: Boolean){

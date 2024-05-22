@@ -60,6 +60,7 @@ class MainActivity : ComponentActivity() {
             viewModel.fromMainMenu.observeAsState().value
             viewModel.fromLogScreen.observeAsState().value
             viewModel.logWritten.observeAsState().value
+            viewModel.gameLog.observeAsState().value
 
             Connect4Theme {
                 // A surface container using the 'background' color from the theme
