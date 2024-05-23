@@ -15,6 +15,9 @@ class Connect4ViewModel : ViewModel() {
     private val _mainMenu = MutableLiveData<Boolean>(true)
     val mainMenu: LiveData<Boolean> = _mainMenu
 
+    private val _dbAccess = MutableLiveData<Boolean>(true)
+    val dbAccess: LiveData<Boolean> = _dbAccess
+
     private val _helpScreen = MutableLiveData<Boolean>(false)
     val helpScreen: LiveData<Boolean> = _helpScreen
 
@@ -252,6 +255,10 @@ class Connect4ViewModel : ViewModel() {
 
     fun setMainMenu(value: Boolean){
         _mainMenu.value = value
+    }
+
+    fun setDBAccess(value: Boolean){
+        _dbAccess.value = value
     }
 
     fun setHelpScreen(value: Boolean){

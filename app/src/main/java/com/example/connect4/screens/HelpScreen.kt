@@ -29,26 +29,28 @@ import androidx.compose.ui.unit.sp
 import com.example.connect4.Connect4ViewModel
 import com.example.connect4.MainActivity
 import com.example.connect4.R
+import com.example.connect4.backAction
+import com.example.connect4.data.SettingsDataStore
 
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 @Composable
-fun HelpScreen(activity: MainActivity, viewModel: Connect4ViewModel){
+fun HelpScreen(activity: MainActivity, viewModel: Connect4ViewModel, settingsDataStore: SettingsDataStore){
 
     val windowSizeClass = calculateWindowSizeClass(activity = activity)  //Agafes mida de la pantalla a la variable windowSizeClass
     if (windowSizeClass.widthSizeClass == WindowWidthSizeClass.Compact){ //Aquí el height és compacte, per tant, orientació portrait
-        PhonePortrait(activity = activity, viewModel = viewModel)
+        PhonePortrait(activity = activity, viewModel = viewModel, settingsDataStore)
     }
     if (windowSizeClass.heightSizeClass == WindowHeightSizeClass.Compact){ //Aquí el width és compacte, per tant, orientació landscape
-        PhoneLandscape(activity = activity, viewModel = viewModel)
+        PhoneLandscape(activity = activity, viewModel = viewModel, settingsDataStore)
     }
     else{
-        PhonePortrait(activity = activity, viewModel = viewModel)
+        PhonePortrait(activity = activity, viewModel = viewModel, settingsDataStore)
     }
 }
 
 
 @Composable
-private fun PhonePortrait(activity: MainActivity, viewModel: Connect4ViewModel){
+private fun PhonePortrait(activity: MainActivity, viewModel: Connect4ViewModel, settingsDataStore: SettingsDataStore){
     Column {
         Row {
             Icon(
@@ -64,7 +66,6 @@ private fun PhonePortrait(activity: MainActivity, viewModel: Connect4ViewModel){
                 maxLines = 1
             )
         }
-
         Column(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -81,12 +82,11 @@ private fun PhonePortrait(activity: MainActivity, viewModel: Connect4ViewModel){
                 modifier = Modifier.size(300.dp)
             )
             Button(
-                onClick =
-                {   viewModel.setMainMenu(true)
-                    viewModel.setHelpScreen(false)
-                },
+                onClick = {
+                    backAction(viewModel, activity, settingsDataStore)
+                }
             ) {
-                Icon(imageVector = Icons.Filled.ArrowBack, contentDescription = "ArrowBack")
+                Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "ArrowBack")
                 Text(text = activity.getString(R.string.goToGame))
             }
         }
@@ -94,7 +94,7 @@ private fun PhonePortrait(activity: MainActivity, viewModel: Connect4ViewModel){
 }
 
 @Composable
-private fun PhoneLandscape(activity: MainActivity, viewModel: Connect4ViewModel){
+private fun PhoneLandscape(activity: MainActivity, viewModel: Connect4ViewModel, settingsDataStore: SettingsDataStore){
     Row {
         Row {
             Icon(
@@ -130,10 +130,9 @@ private fun PhoneLandscape(activity: MainActivity, viewModel: Connect4ViewModel)
                     modifier = Modifier.size(300.dp)
                 )
                 Button(
-                    onClick =
-                    {   viewModel.setMainMenu(true)
-                        viewModel.setHelpScreen(false)
-                    },
+                    onClick = {
+                        backAction(viewModel, activity, settingsDataStore)
+                    }
                 ) {
                     Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "ArrowBack")
                     Text(text = activity.getString(R.string.goToGame))

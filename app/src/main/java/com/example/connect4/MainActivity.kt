@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.lifecycle.asLiveData
 import com.example.connect4.data.SettingsDataStore
 import com.example.connect4.screens.ConfigurationScreen
+import com.example.connect4.screens.DBAccesScreen
 import com.example.connect4.screens.GameScreen
 import com.example.connect4.screens.HelpScreen
 import com.example.connect4.screens.LogScreen
@@ -61,6 +62,7 @@ class MainActivity : ComponentActivity() {
             viewModel.fromLogScreen.observeAsState().value
             viewModel.logWritten.observeAsState().value
             viewModel.gameLog.observeAsState().value
+            viewModel.dbAccess.observeAsState().value
 
             Connect4Theme {
                 // A surface container using the 'background' color from the theme
@@ -69,10 +71,11 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     if(viewModel.mainMenu.value == true) MainMenu(this, viewModel)
-                    else if(viewModel.helpScreen.value == true) HelpScreen(this, viewModel)
+                    else if(viewModel.helpScreen.value == true) HelpScreen(this, viewModel, settingsDataStore)
                     else if (viewModel.configurationScreen.value == true) ConfigurationScreen(this, viewModel, settingsDataStore)
                     else if(viewModel.gameScreen.value == true) GameScreen(this, viewModel, settingsDataStore)
-                    else LogScreen(this, viewModel)
+                    else if(viewModel.dbAccess.value == true) DBAccesScreen(this, viewModel, settingsDataStore)
+                    else if(viewModel.logScreen.value == true) LogScreen(this, viewModel)
                 }
             }
         }
@@ -90,6 +93,11 @@ fun backAction(viewModel: Connect4ViewModel, activity: MainActivity, settingsDat
     }
 
     if(viewModel.alias.value == ""){
+        return
+    }
+    if(viewModel.dbAccess.value == true){
+        viewModel.setDBAccess(false)
+        viewModel.setMainMenu(true)
         return
     }
     if(viewModel.helpScreen.value == true){

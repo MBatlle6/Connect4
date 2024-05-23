@@ -7,9 +7,11 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material3.Button
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -38,6 +40,7 @@ import androidx.lifecycle.lifecycleScope
 import com.example.connect4.Connect4ViewModel
 import com.example.connect4.MainActivity
 import com.example.connect4.R
+import com.example.connect4.backAction
 import com.example.connect4.data.SettingsDataStore
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch

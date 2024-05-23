@@ -49,13 +49,13 @@ fun BigGrid(viewModel: Connect4ViewModel, activity: MainActivity, settingsDataSt
                                 viewModel.addToGameLog(
                                     activity.getString(R.string.moveTime) + viewModel.time.value!! + "\n" +
                                             activity.getString(R.string.remainingTime) + viewModel.countdownTime.value!! + "\n" +
-                                            activity.getString(R.string.occupiedCell) + "(${rowIndex + 1},${columnIndex + 1})"
+                                            activity.getString(R.string.occupiedCell) + "(${rowIndex + 1},${columnIndex + 1})" //Aplicar aquí la coordenada correcra de la cel·la
                                 )
                             }
                             else{
                                 viewModel.addToGameLog(
                                     activity.getString(R.string.moveTime) + viewModel.time.value!! + "\n" +
-                                            activity.getString(R.string.occupiedCell) + "(${rowIndex + 1},${columnIndex + 1})"
+                                            activity.getString(R.string.occupiedCell) + "(${rowIndex + 1},${columnIndex + 1})" //Aplicar aquí la coordenada correcra de la cel·la
                                 )
                             }
                             //PER PASSAR LA GRID ES POT FER QUE ES PASSI PER PARAMETRE AL TURNOJUGADOR
@@ -101,13 +101,13 @@ fun MediumGrid(viewModel: Connect4ViewModel, activity: MainActivity, settingsDat
                                 viewModel.addToGameLog(
                                     activity.getString(R.string.moveTime) + viewModel.time.value!! + "\n" +
                                             activity.getString(R.string.remainingTime) + viewModel.countdownTime.value!! + "\n" +
-                                            activity.getString(R.string.occupiedCell) + "(${rowIndex + 1},${columnIndex + 1})"
+                                            activity.getString(R.string.occupiedCell) + "(${rowIndex + 1},${columnIndex + 1})" //Aplicar aquí la coordenada correcra de la cel·la
                                 )
                             }
                             else{
                                 viewModel.addToGameLog(
                                     activity.getString(R.string.moveTime) + viewModel.time.value!! + "\n" +
-                                            activity.getString(R.string.occupiedCell) + "(${rowIndex + 1},${columnIndex + 1})"
+                                            activity.getString(R.string.occupiedCell) + "(${rowIndex + 1},${columnIndex + 1})" //Aplicar aquí la coordenada correcra de la cel·la
                                 )
                             }
                             viewModel.turnoJugador(rowIndex,columnIndex, viewModel,2)
@@ -151,13 +151,13 @@ fun LittleGrid(viewModel: Connect4ViewModel, activity: MainActivity, settingsDat
                                 viewModel.addToGameLog(
                                     activity.getString(R.string.moveTime) + viewModel.time.value!! + "\n" +
                                             activity.getString(R.string.remainingTime) + viewModel.countdownTime.value!! + "\n" +
-                                            activity.getString(R.string.occupiedCell) + "(${rowIndex + 1},${columnIndex + 1})"
+                                            activity.getString(R.string.occupiedCell) + "(${rowIndex + 1},${columnIndex + 1})" //Aplicar aquí la coordenada correcra de la cel·la
                                 )
                             }
                             else{
                                 viewModel.addToGameLog(
                                     activity.getString(R.string.moveTime) + viewModel.time.value!! + "\n" +
-                                            activity.getString(R.string.occupiedCell) + "(${rowIndex + 1},${columnIndex + 1})"
+                                            activity.getString(R.string.occupiedCell) + "(${rowIndex + 1},${columnIndex + 1})" //Aplicar aquí la coordenada correcra de la cel·la
                                 )
                             }
                             viewModel.turnoJugador(rowIndex,columnIndex, viewModel,3)

@@ -26,5 +26,6 @@
     <string name="occupiedCell">Casilla ocupada: </string>
     <string name="remainingTime">Tiempo restante: </string>
     <string name="moveTime">Tiempo de tirada: </string>
+    <string name="checkGames">Consultar partidas</string>
 
 </resources>

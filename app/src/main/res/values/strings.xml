@@ -25,5 +25,6 @@
     <string name="occupiedCell">Occupied cell: </string>
     <string name="remainingTime">Remaining time: </string>
     <string name="moveTime">Move time: </string>
+    <string name="checkGames">Check games</string>
 
 </resources>
