@@ -316,6 +316,9 @@ class Connect4ViewModel : ViewModel() {
                         _resultat.value = "Victoria del jugador ROIG"
                         setGameFinished(true)
                     }
+                    _resultat.value = "EMPAT"
+                    setGameFinished(true)
+                    return
                 }
                 if (comprobarsihemguanyatPetit()){
                     println("Joc Finalitzat")
@@ -324,10 +327,6 @@ class Connect4ViewModel : ViewModel() {
                 }else{
                     turnoIA(viewModel,grid)
                     _numeroDeFixes.value = +1
-                    if(_numeroDeFixes.value == 24){
-                        _resultat.value = "EMPAT"
-                        setGameFinished(true)
-                    }
                 }
             }else{
                 println("Position $i,$j incorrecta")
