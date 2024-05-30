@@ -11,6 +11,7 @@
     <string name="alias">Alias</string>
     <string name="gridSize">Grid size</string>
     <string name="timeControl">Time control</string>
+    <string name="withoutTimeControl">Without time control</string>
     <string name="start">Start</string>
     <string name="timeOver">Time over !!</string>
     <string name="results">Results</string>
@@ -21,5 +22,9 @@
     <string name="recipientEmail">Recipient e-mail</string>
     <string name="sendEmail">Send e-mail</string>
     <string name="newGame">New game</string>
+    <string name="occupiedCell">Occupied cell: </string>
+    <string name="remainingTime">Remaining time: </string>
+    <string name="moveTime">Move time: </string>
+    <string name="checkGames">Check games</string>
 
 </resources>

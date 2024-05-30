@@ -66,6 +66,14 @@ fun MainMenu(activity: MainActivity, viewModel: Connect4ViewModel){
             Text(text = activity.getString(R.string.startGame))
         }
         Button(
+            onClick = {
+                viewModel.setMainMenu(false)
+                viewModel.setDBAccess(true)
+            },
+        ) {
+            Text(text = activity.getString(R.string.checkGames))
+        }
+        Button(
             onClick = { activity.finish() },
         ) {
             Text(text = activity.getString(R.string.exit))

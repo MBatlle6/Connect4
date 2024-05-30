@@ -55,10 +55,18 @@ fun LogScreen(activity: MainActivity, viewModel: Connect4ViewModel) {
     if (windowSizeClass.heightSizeClass == WindowHeightSizeClass.Compact){
         PhoneLandscape(activity = activity, viewModel = viewModel)
     }
+    if (windowSizeClass.heightSizeClass == WindowHeightSizeClass.Expanded && windowSizeClass.widthSizeClass == WindowWidthSizeClass.Medium){
+        PhonePortrait(activity = activity, viewModel = viewModel)
+    }
+
+    if (windowSizeClass.widthSizeClass == WindowWidthSizeClass.Expanded && windowSizeClass.heightSizeClass == WindowHeightSizeClass.Medium){
+        PhoneLandscape(activity = activity, viewModel = viewModel)
+    }
 
 
 
-}
+
+    }
 
 fun getCurrentDateAndHour(): String {
     val now = Instant.now()

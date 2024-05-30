@@ -32,6 +32,7 @@ import com.example.connect4.Connect4ViewModel
 import com.example.connect4.MainActivity
 import com.example.connect4.R
 import com.example.connect4.backAction
+import com.example.connect4.data.SettingsDataStore
 import com.example.connect4.widgets.AliasWrittingButton
 import com.example.connect4.widgets.BigGridButton
 import com.example.connect4.widgets.LittleGridButton
@@ -40,21 +41,24 @@ import com.example.connect4.widgets.TimeControlButton
 
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 @Composable
-fun ConfigurationScreen(activity: MainActivity, viewModel: Connect4ViewModel){
+fun ConfigurationScreen(activity: MainActivity, viewModel: Connect4ViewModel, settingsDataStore: SettingsDataStore){
 
     val windowSizeClass = calculateWindowSizeClass(activity = activity)
     if (windowSizeClass.widthSizeClass == WindowWidthSizeClass.Compact){
-        PhonePortrait(activity = activity, viewModel = viewModel)
+        PhonePortrait(activity = activity, viewModel = viewModel, settingsDataStore = settingsDataStore)
     }
     if (windowSizeClass.heightSizeClass == WindowHeightSizeClass.Compact){
-        PhoneLandscape(activity = activity, viewModel = viewModel)
+        PhoneLandscape(activity = activity, viewModel = viewModel, settingsDataStore)
+    }
+    else{
+        PhonePortrait(activity = activity, viewModel = viewModel, settingsDataStore)
     }
 
 
 }
 
 @Composable
-private fun PhonePortrait(activity: MainActivity, viewModel: Connect4ViewModel){
+private fun PhonePortrait(activity: MainActivity, viewModel: Connect4ViewModel, settingsDataStore: SettingsDataStore){
     Column(
     ) {
         Row {
@@ -74,7 +78,7 @@ private fun PhonePortrait(activity: MainActivity, viewModel: Connect4ViewModel){
         Column(
             modifier = Modifier.padding(10.dp,0.dp)
         ){
-            AliasWrittingButton(activity = activity, viewModel = viewModel)
+            AliasWrittingButton(activity = activity, viewModel = viewModel, settingsDataStore)
             Spacer(modifier = Modifier.height(20.dp))
             Row(
                 verticalAlignment = Alignment.CenterVertically
@@ -92,13 +96,13 @@ private fun PhonePortrait(activity: MainActivity, viewModel: Connect4ViewModel){
             Row(verticalAlignment = Alignment.CenterVertically)
             {
                 Text(text = "5")
-                LittleGridButton(viewModel = viewModel)
+                LittleGridButton(viewModel = viewModel, activity, settingsDataStore)
                 Spacer(modifier = Modifier.width(20.dp))
                 Text(text = "6")
-                MediumGridButton(viewModel = viewModel)
+                MediumGridButton(viewModel = viewModel, activity,settingsDataStore)
                 Spacer(modifier = Modifier.width(20.dp))
                 Text(text = "7")
-                BigGridButton(viewModel = viewModel)
+                BigGridButton(viewModel = viewModel, activity, settingsDataStore)
             }
             Spacer(modifier = Modifier.height(40.dp))
             Text(activity.getString(R.string.timeControl))
@@ -110,7 +114,7 @@ private fun PhonePortrait(activity: MainActivity, viewModel: Connect4ViewModel){
                     modifier = Modifier.size(24.dp),
                     contentDescription = "Clock"
                 )
-                TimeControlButton(viewModel = viewModel)
+                TimeControlButton(viewModel = viewModel, settingsDataStore, activity)
             }
             Spacer(modifier = Modifier.height(40.dp))
             Box(
@@ -119,9 +123,7 @@ private fun PhonePortrait(activity: MainActivity, viewModel: Connect4ViewModel){
             ) {
                 Button(
                     onClick = {
-                        if (viewModel.alias.value != ""){
-                            backAction(viewModel, activity)
-                        }
+                            backAction(viewModel, activity, settingsDataStore)
                     }
                 ) {
                     Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "ArrowBack")
@@ -134,7 +136,7 @@ private fun PhonePortrait(activity: MainActivity, viewModel: Connect4ViewModel){
 }
 
 @Composable
-private fun PhoneLandscape(activity: MainActivity, viewModel: Connect4ViewModel){
+private fun PhoneLandscape(activity: MainActivity, viewModel: Connect4ViewModel, settingsDataStore: SettingsDataStore){
     Row(
     ) {
         Row {
@@ -154,7 +156,7 @@ private fun PhoneLandscape(activity: MainActivity, viewModel: Connect4ViewModel)
         Column(
             modifier = Modifier.padding(10.dp,0.dp)
         ){
-            AliasWrittingButton(activity = activity, viewModel = viewModel)
+            AliasWrittingButton(activity = activity, viewModel = viewModel, settingsDataStore)
             Spacer(modifier = Modifier.height(20.dp))
             Row(
                 verticalAlignment = Alignment.CenterVertically
@@ -172,13 +174,13 @@ private fun PhoneLandscape(activity: MainActivity, viewModel: Connect4ViewModel)
             Row(verticalAlignment = Alignment.CenterVertically)
             {
                 Text(text = "5")
-                LittleGridButton(viewModel = viewModel)
+                LittleGridButton(viewModel = viewModel, activity, settingsDataStore)
                 Spacer(modifier = Modifier.width(20.dp))
                 Text(text = "6")
-                MediumGridButton(viewModel = viewModel)
+                MediumGridButton(viewModel = viewModel, activity, settingsDataStore)
                 Spacer(modifier = Modifier.width(20.dp))
                 Text(text = "7")
-                BigGridButton(viewModel = viewModel)
+                BigGridButton(viewModel = viewModel,activity, settingsDataStore)
             }
             Text(activity.getString(R.string.timeControl))
             Spacer(modifier = Modifier.height(10.dp))
@@ -189,7 +191,7 @@ private fun PhoneLandscape(activity: MainActivity, viewModel: Connect4ViewModel)
                     modifier = Modifier.size(24.dp),
                     contentDescription = "Clock"
                 )
-                TimeControlButton(viewModel = viewModel)
+                TimeControlButton(viewModel = viewModel, settingsDataStore, activity)
             }
             Box(
                 modifier = Modifier.fillMaxSize(),
@@ -197,9 +199,7 @@ private fun PhoneLandscape(activity: MainActivity, viewModel: Connect4ViewModel)
             ) {
                 Button(
                     onClick = {
-                        if (viewModel.alias.value != ""){
-                            backAction(viewModel, activity)
-                        }
+                            backAction(viewModel, activity, settingsDataStore)
                     }
                 ) {
                     Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "ArrowBack")

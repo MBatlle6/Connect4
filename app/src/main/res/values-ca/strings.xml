@@ -13,6 +13,7 @@
     <string name="alias">Alias</string>
     <string name="gridSize">Mida graella</string>
     <string name="timeControl">Control del temps</string>
+    <string name="withoutTimeControl">Sense control del temps</string>
     <string name="start">Començar</string>
     <string name="timeOver">S\'ha acabat el temps !!</string>
     <string name="results">Resultats</string>
@@ -23,4 +24,8 @@
     <string name="recipientEmail">E-mail destinatari</string>
     <string name="sendEmail">Enviar e-mail</string>
     <string name="newGame">Nova partida</string>
+    <string name="occupiedCell">Cel·la ocupada: </string>
+    <string name="remainingTime">Temps restant: </string>
+    <string name="moveTime">Temps de tirada: </string>
+    <string name="checkGames">Consultar partides</string>
 </resources>

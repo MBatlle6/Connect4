@@ -7,9 +7,11 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material3.Button
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -18,6 +20,8 @@ import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.State
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
@@ -31,22 +35,32 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.lifecycleScope
 import com.example.connect4.Connect4ViewModel
 import com.example.connect4.MainActivity
 import com.example.connect4.R
+import com.example.connect4.backAction
+import com.example.connect4.data.SettingsDataStore
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @Composable
-fun AliasWrittingButton(activity: MainActivity, viewModel: Connect4ViewModel){
+fun AliasWrittingButton(activity: MainActivity, viewModel: Connect4ViewModel, settingsDataStore: SettingsDataStore){
     val focusManager = LocalFocusManager.current
+    val aliasState = settingsDataStore.preferenceFlowAlias.asLiveData().observeAsState()
     OutlinedTextField(
         leadingIcon = {
             Icon(imageVector = Icons.Filled.AccountCircle, contentDescription = "")
         },
-        isError = viewModel.alias.value == "",
-        value = viewModel.alias.value!!,
+        isError = aliasState.value == "",
+        value = aliasState.value?: "",
         onValueChange = {
-            if(it.length < 13) viewModel.setAlias(it)
+            if(it.length < 13){
+                activity.lifecycleScope.launch {
+                    settingsDataStore.saveAliasToPreferencesStore(it, activity)
+                }
+            }
         },
         label = { Text(text = activity.getString(R.string.alias)) },
         singleLine = true,
@@ -63,51 +77,68 @@ fun AliasWrittingButton(activity: MainActivity, viewModel: Connect4ViewModel){
 }
 
 @Composable
-fun LittleGridButton(viewModel: Connect4ViewModel){
+fun LittleGridButton(viewModel: Connect4ViewModel, activity: MainActivity, settingsDataStore: SettingsDataStore){
     RadioButton(
-        selected = viewModel.gridSize.value == 5 ,
+        selected = settingsDataStore.preferenceFlowGridSize.asLiveData().observeAsState().value == 5 ,
         onClick = {
-            viewModel.setGridSize(5)
+            activity.lifecycleScope.launch {
+                settingsDataStore.saveGridSizeToPreferencesStore(5, activity)
+            }
         }
     )
 }
 
 @Composable
-fun MediumGridButton(viewModel: Connect4ViewModel){
+fun MediumGridButton(viewModel: Connect4ViewModel, activity: MainActivity, settingsDataStore: SettingsDataStore){
     RadioButton(
-        selected = viewModel.gridSize.value == 6 ,
+        selected = settingsDataStore.preferenceFlowGridSize.asLiveData().observeAsState().value == 6 ,
         onClick = {
-            viewModel.setGridSize(6)
+            activity.lifecycleScope.launch {
+                settingsDataStore.saveGridSizeToPreferencesStore(6, activity)
+            }
         }
     )
 }
 
 @Composable
-fun BigGridButton(viewModel: Connect4ViewModel){
+fun BigGridButton(viewModel: Connect4ViewModel, activity: MainActivity, settingsDataStore: SettingsDataStore){
     RadioButton(
-        selected = viewModel.gridSize.value == 7 ,
+        selected = settingsDataStore.preferenceFlowGridSize.asLiveData().observeAsState().value == 7 ,
         onClick = {
-            viewModel.setGridSize(7)
+            activity.lifecycleScope.launch {
+                settingsDataStore.saveGridSizeToPreferencesStore(7, activity)
+            }
         }
     )
 
 }
 
 @Composable
-fun TimeControlButton(viewModel: Connect4ViewModel){
+fun TimeControlButton(viewModel: Connect4ViewModel, settingsDataStore: SettingsDataStore, activity: MainActivity){
+    val timeControlState = settingsDataStore.preferenceFlowTimeControl.asLiveData().observeAsState()
     Checkbox(
-        checked = viewModel.timeControl.value!!,
+        checked = timeControlState.value?: true,
         onCheckedChange = {
-            if (!viewModel.timeControl.value!!) viewModel.setTimeControl(true)
-            else viewModel.setTimeControl(false)
+            if (!timeControlState.value!!){
+                activity.lifecycleScope.launch {
+                    settingsDataStore.saveTimeControlToPreferencesStore(true, activity)
+                }
+            }
+            else{
+                activity.lifecycleScope.launch {
+                    settingsDataStore.saveTimeControlToPreferencesStore(false, activity)
+                }
+            }
         },
     )
 }
 
 @Composable
-fun Timer(activity: MainActivity, viewModel: Connect4ViewModel) {
+fun Timer(activity: MainActivity, viewModel: Connect4ViewModel, settingsDataStore: SettingsDataStore) {
 
-    if(viewModel.timeControl.value!!){
+    val timeControlState = settingsDataStore.preferenceFlowTimeControl.asLiveData().observeAsState()
+
+    if(timeControlState.value == true){
         LaunchedEffect(Unit) {
             while (viewModel.countdownTime.value!! > 0) {
                 if(viewModel.gameFinished.value!!){
@@ -134,7 +165,7 @@ fun Timer(activity: MainActivity, viewModel: Connect4ViewModel) {
             color = Color.Red
         )
     }
-    else{
+    if(timeControlState.value == false){
         LaunchedEffect(Unit) {
             while (viewModel.time.value!! < 5000) { //Contador segon 5000 para
                 if(viewModel.gameFinished.value!!){

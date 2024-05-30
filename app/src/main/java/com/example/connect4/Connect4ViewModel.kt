@@ -4,6 +4,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.connect4.data.SettingsDataStore
+import kotlinx.coroutines.launch
 import kotlin.random.Random
 
 
@@ -11,6 +14,9 @@ class Connect4ViewModel : ViewModel() {
 
     private val _mainMenu = MutableLiveData<Boolean>(true)
     val mainMenu: LiveData<Boolean> = _mainMenu
+
+    private val _dbAccess = MutableLiveData<Boolean>(true)
+    val dbAccess: LiveData<Boolean> = _dbAccess
 
     private val _helpScreen = MutableLiveData<Boolean>(false)
     val helpScreen: LiveData<Boolean> = _helpScreen
@@ -24,6 +30,9 @@ class Connect4ViewModel : ViewModel() {
     private val _log = MutableLiveData<String>("")
     val log: LiveData<String> = _log
 
+    private val _gameLog = MutableLiveData<String>("")
+    val gameLog: LiveData<String> = _gameLog
+
     private val _email = MutableLiveData<String>("mbg29@alumnes.udl.cat")
     val email: LiveData<String> = _email
 
@@ -36,10 +45,7 @@ class Connect4ViewModel : ViewModel() {
     private val _littleGrid = MutableLiveData<Array<Array<Pair<Color, String>>>>(Array(5) { Array(5) { Pair(Color.White, "W") } })
     val littleGrid: LiveData<Array<Array<Pair<Color,String>>>> = _littleGrid
 
-    private val _gridSize = MutableLiveData<Int>(5)
-    val gridSize: LiveData<Int> = _gridSize
-
-    private val _timeControl = MutableLiveData<Boolean>(false)
+    private val _timeControl = MutableLiveData<Boolean>(true)
     val timeControl: LiveData<Boolean> = _timeControl
 
     private val _gameScreen = MutableLiveData<Boolean>(false)
@@ -200,6 +206,7 @@ class Connect4ViewModel : ViewModel() {
     fun resetGame(){
         _time.value = 0
         _countdownTime.value = 5
+        _gameLog.value = ""
         _log.value = ""
         _bigGrid.value = Array(7){ Array(7){Pair(Color.White, "W")} }
         _mediumGrid.value = Array(6){ Array(6){Pair(Color.White, "W")} }
@@ -221,16 +228,13 @@ class Connect4ViewModel : ViewModel() {
         _logScreen.value = value
     }
 
+
     fun setGameScreen(value: Boolean){
         _gameScreen.value = value
     }
 
     fun setTimeControl(value: Boolean){
         _timeControl.value = value
-    }
-
-    fun setGridSize(size: Int){
-        _gridSize.value = size
     }
 
     fun setAlias(value: String){
@@ -245,8 +249,16 @@ class Connect4ViewModel : ViewModel() {
         _log.value += value
     }
 
+    fun addToGameLog(value: String){
+        _gameLog.value = _gameLog.value +"\n" + "\n" + value
+    }
+
     fun setMainMenu(value: Boolean){
         _mainMenu.value = value
+    }
+
+    fun setDBAccess(value: Boolean){
+        _dbAccess.value = value
     }
 
     fun setHelpScreen(value: Boolean){

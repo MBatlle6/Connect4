@@ -71,4 +71,7 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
     implementation("androidx.compose.runtime:runtime-livedata:1.6.5")
+    implementation ("androidx.datastore:datastore-preferences:1.1.1")
+    implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.8.0")
 }
+
