@@ -9,12 +9,13 @@ import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import java.io.IOException
+import java.util.concurrent.Flow
 
 private const val GAME_PREFERENCES_NAME = "game_preferences"
+lateinit var settingsDataStore: SettingsDataStore
 
 private val Context.dataStore : DataStore<Preferences> by preferencesDataStore(
     name = GAME_PREFERENCES_NAME

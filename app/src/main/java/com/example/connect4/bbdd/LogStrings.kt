@@ -6,8 +6,7 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "Strings_table")
-class Log_Strings(
-
+class LogStrings(
     @PrimaryKey(autoGenerate = true) val id: Int,
     @ColumnInfo(name = "key") val key: String
 
