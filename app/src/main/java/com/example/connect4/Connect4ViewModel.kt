@@ -27,10 +27,10 @@ class Connect4ViewModel : ViewModel() {
     private val _alias = MutableLiveData<String>("Player1")
     val alias: LiveData<String> = _alias
 
-    private val _log = MutableLiveData<String>("")
+    private val _log = MutableLiveData<String>("") //log final
     val log: LiveData<String> = _log
 
-    private val _gameLog = MutableLiveData<String>("")
+    private val _gameLog = MutableLiveData<String>("") //log que es va creant durant la partida
     val gameLog: LiveData<String> = _gameLog
 
     private val _email = MutableLiveData<String>("mbg29@alumnes.udl.cat")

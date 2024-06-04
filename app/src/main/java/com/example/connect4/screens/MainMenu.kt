@@ -60,6 +60,7 @@ fun MainMenu(activity: MainActivity, viewModel: Connect4ViewModel){
         Button(
             onClick = {
                 viewModel.setMainMenu(false)
+                viewModel.setHelpScreen(false)
                 viewModel.setGameScreen(true)
                       },
         ) {
@@ -68,6 +69,8 @@ fun MainMenu(activity: MainActivity, viewModel: Connect4ViewModel){
         Button(
             onClick = {
                 viewModel.setMainMenu(false)
+                viewModel.setHelpScreen(false)
+                viewModel.setConfigurationScreen(false)
                 viewModel.setDBAccess(true)
             },
         ) {

@@ -71,11 +71,12 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     if(viewModel.mainMenu.value == true) MainMenu(this, viewModel)
-                    else if(viewModel.helpScreen.value == true) HelpScreen(this, viewModel, settingsDataStore)
-                    else if (viewModel.configurationScreen.value == true) ConfigurationScreen(this, viewModel, settingsDataStore)
-                    else if(viewModel.gameScreen.value == true) GameScreen(this, viewModel, settingsDataStore)
-                    else if(viewModel.dbAccess.value == true) DBAccesScreen(this, viewModel, settingsDataStore)
                     else if(viewModel.logScreen.value == true) LogScreen(this, viewModel)
+                    else if(viewModel.gameScreen.value == true) GameScreen(this, viewModel, settingsDataStore)
+                    else if (viewModel.configurationScreen.value == true) ConfigurationScreen(this, viewModel, settingsDataStore)
+                    else if(viewModel.dbAccess.value == true) DBAccesScreen(this, viewModel, settingsDataStore)
+                    else if(viewModel.helpScreen.value == true) HelpScreen(this, viewModel, settingsDataStore)
+
                 }
             }
         }
