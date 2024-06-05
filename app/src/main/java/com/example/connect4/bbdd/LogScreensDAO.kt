@@ -16,8 +16,4 @@ interface LogScreensDAO {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(word: LogStrings)
 
-    @Query("DELETE FROM Strings_table")
-    suspend fun deleteAll()
-
-    companion object
 }

@@ -1,16 +1,39 @@
 package com.example.connect4
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.connect4.bbdd.Log
+import com.example.connect4.bbdd.LogRepository
+import com.example.connect4.bbdd.MainState
 import com.example.connect4.data.SettingsDataStore
 import kotlinx.coroutines.launch
 import kotlin.random.Random
 
 
-class Connect4ViewModel : ViewModel() {
+class Connect4ViewModel(
+    private val logRepository: LogRepository
+) : ViewModel() {
+
+    var state by mutableStateOf(MainState())
+    private set
+
+    fun onNameChange(name:String){
+        state = state.copy(log = name)
+    }
+    fun saveUser(){
+        val log =  Log(
+            data = state.log
+        )
+        viewModelScope.launch {
+            logRepository.insertLog(log)
+        }
+    }
 
     private val _mainMenu = MutableLiveData<Boolean>(true)
     val mainMenu: LiveData<Boolean> = _mainMenu
@@ -662,4 +685,5 @@ class Connect4ViewModel : ViewModel() {
         }
         return false
     }
+
 }

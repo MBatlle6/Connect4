@@ -11,6 +11,8 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.asLiveData
+import androidx.room.Room
+import com.example.connect4.bbdd.LogDataBase
 import com.example.connect4.data.SettingsDataStore
 import com.example.connect4.screens.ConfigurationScreen
 import com.example.connect4.screens.DBAccesScreen
@@ -36,6 +38,7 @@ class MainActivity : ComponentActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
 
         settingsDataStore = SettingsDataStore(this)

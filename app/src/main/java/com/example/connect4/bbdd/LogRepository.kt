@@ -1,19 +1,18 @@
 package com.example.connect4.bbdd
-
-import androidx.annotation.WorkerThread
+import com.example.connect4.bbdd.Log
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import com.example.connect4.bbdd.LogStrings
 
-class LogRepository(
-    private val LogScreensDAO: LogScreensDAO) {
+class LogRepository(private val logDao: LogScreensDAO) {
+    suspend fun getLog(): Flow<Log> {
+        val entities = logDao.getLogs()
+        return entities.map {
+            Log(data = it.)
+        }
+    }
 
-    val allLogs: Flow<List<LogStrings>> = LogScreensDAO.getLogs()
-
-    @Suppress("RedundantSuspendModifier")
-    @WorkerThread
-    suspend fun insert(logStrings: LogStrings) {
-        LogScreensDAO.insert(logStrings)
+    suspend fun insertLog(log: Log){
+        val entity = LogStrings(data = log.data)
+        logDao.insert(entity)
     }
 }
-
