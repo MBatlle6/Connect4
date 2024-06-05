@@ -47,16 +47,9 @@ private fun PhonePortrait(activity: MainActivity, viewModel: Connect4ViewModel,l
 
 @Composable
 private fun PhoneLandscape(activity: MainActivity, viewModel: Connect4ViewModel,logVM: LogViewModel, settingsDataStore: SettingsDataStore){
-    LazyColumn(modifier = Modifier.fillMaxWidth(),verticalArrangement = Arrangement.spacedBy(8.dp)) {
-        for (entry in logVM.allWords.value!!){
-            item {
-                Button(
-                    onClick = {activity.finish()}
-                )
-                {
-                    Text(text =entry.alias + "  " +entry.currentTime)
-                }
-            }
+    Column {
+        Text(text =  logVM.allWords.value!![viewModel.entryId.value!!].data)
+        Button(onClick = { backAction(viewModel,activity,settingsDataStore) }) {
 
         }
     }

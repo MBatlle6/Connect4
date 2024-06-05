@@ -1,6 +1,8 @@
 package com.example.connect4.screens
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Button
@@ -14,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.connect4.Connect4ViewModel
 import com.example.connect4.MainActivity
+import com.example.connect4.backAction
 import com.example.connect4.bbdd.LogViewModel
 import com.example.connect4.data.SettingsDataStore
 
@@ -80,34 +83,47 @@ private fun PhoneLandscape(activity: MainActivity, viewModel: Connect4ViewModel,
 
 @Composable
 private fun TabletPortrait(activity: MainActivity, viewModel: Connect4ViewModel, logVM: LogViewModel,settingsDataStore: SettingsDataStore){
-    LazyColumn(modifier = Modifier.fillMaxWidth(),verticalArrangement = Arrangement.spacedBy(8.dp)) {
-        for (entry in logVM.allWords.value!!){
-            item {
-                Button(
-                    onClick = {activity.finish()}
-                )
-                {
-                    Text(text =entry.alias + "  " +entry.currentTime)
+    Row {
+        LazyColumn(modifier = Modifier.fillMaxWidth(),verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            for (entry in logVM.allWords.value!!){
+                item {
+                    Button(
+                        onClick = {activity.finish()}
+                    )
+                    {
+                        Text(text =entry.alias + "  " +entry.currentTime)
+                    }
                 }
-            }
 
+            }
+        }
+        Column {
+            Text(text =  logVM.allWords.value!![viewModel.entryId.value!!].data)
+            Button(onClick = { backAction(viewModel,activity,settingsDataStore) }) {
+            }
         }
     }
 }
 
 @Composable
 private fun TabletLandscape(activity: MainActivity, viewModel: Connect4ViewModel,logVM: LogViewModel, settingsDataStore: SettingsDataStore){
-    LazyColumn(modifier = Modifier.fillMaxWidth(),verticalArrangement = Arrangement.spacedBy(8.dp)) {
-        for (entry in logVM.allWords.value!!){
-            item {
-                Button(
-                    onClick = {activity.finish()}
-                )
-                {
-                    Text(text =entry.alias + "  " +entry.currentTime)
+    Row {
+        LazyColumn(modifier = Modifier.fillMaxWidth(),verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            for (entry in logVM.allWords.value!!){
+                item {
+                    Button(
+                        onClick = {activity.finish()}
+                    )
+                    {
+                        Text(text =entry.alias + "  " +entry.currentTime)
+                    }
                 }
             }
-
+        }
+        Column {
+            Text(text =  logVM.allWords.value!![viewModel.entryId.value!!].data)
+            Button(onClick = { backAction(viewModel,activity,settingsDataStore) }) {
+            }
         }
     }
 }
