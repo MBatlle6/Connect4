@@ -83,7 +83,7 @@ private fun PhoneLandscape(activity: MainActivity, viewModel: Connect4ViewModel,
 
 @Composable
 private fun TabletPortrait(activity: MainActivity, viewModel: Connect4ViewModel, logVM: LogViewModel,settingsDataStore: SettingsDataStore){
-    Row {
+    Column {
         LazyColumn(modifier = Modifier.fillMaxWidth(),verticalArrangement = Arrangement.spacedBy(8.dp)) {
             for (entry in logVM.allWords.value!!){
                 item {
