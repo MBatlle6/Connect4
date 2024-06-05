@@ -54,6 +54,9 @@ class Connect4ViewModel : ViewModel() {
     private val _logScreen = MutableLiveData<Boolean>(false)
     val logScreen: LiveData<Boolean> = _logScreen
 
+    private val _secondaryLogScreen = MutableLiveData<Boolean>(false)
+    val secundaryLogScreen: LiveData<Boolean> = _secondaryLogScreen
+
     private val _time = MutableLiveData<Int>(0)
     val time: LiveData<Int> = _time
 
@@ -234,6 +237,9 @@ class Connect4ViewModel : ViewModel() {
 
     fun setLogScreen(value: Boolean){
         _logScreen.value = value
+    }
+    fun setSecundaryLogScreen(value:Boolean){
+        _secondaryLogScreen.value = value
     }
 
 

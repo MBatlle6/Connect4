@@ -21,6 +21,7 @@ import com.example.connect4.screens.GameScreen
 import com.example.connect4.screens.HelpScreen
 import com.example.connect4.screens.LogScreen
 import com.example.connect4.screens.MainMenu
+import com.example.connect4.screens.SecundaryLogScreen
 import com.example.connect4.ui.theme.Connect4Theme
 
 class MainActivity : ComponentActivity() {
@@ -70,6 +71,7 @@ class MainActivity : ComponentActivity() {
             viewModel.dbAccess.observeAsState().value
             viewModel.logDBWritten.observeAsState().value
             logVM.allWords.observeAsState().value
+            viewModel.secundaryLogScreen.observeAsState().value
 
             Connect4Theme {
                 // A surface container using the 'background' color from the theme
@@ -83,6 +85,7 @@ class MainActivity : ComponentActivity() {
                     else if (viewModel.configurationScreen.value == true) ConfigurationScreen(this, viewModel, settingsDataStore)
                     else if(viewModel.dbAccess.value == true) DBAccesScreen(this, viewModel, settingsDataStore,logVM)
                     else if(viewModel.helpScreen.value == true) HelpScreen(this, viewModel, settingsDataStore)
+                    else if(viewModel.secundaryLogScreen.value == true) SecundaryLogScreen(this,viewModel,logVM,settingsDataStore)
 
                 }
             }
@@ -93,6 +96,11 @@ fun backAction(viewModel: Connect4ViewModel, activity: MainActivity, settingsDat
 
     if(viewModel.gameScreen.value == true){
         activity.finish()
+    }
+
+    if(viewModel.secundaryLogScreen.value == true){
+        viewModel.setSecundaryLogScreen(false)
+        viewModel.setDBAccess(true)
     }
 
     settingsDataStore.preferenceFlowAlias.asLiveData().observe(activity) {
