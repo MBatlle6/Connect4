@@ -99,8 +99,6 @@ private fun TabletPortrait(activity: MainActivity, viewModel: Connect4ViewModel,
         }
         Column {
             Text(text =  logVM.allWords.value!![viewModel.entryId.value!!].data)
-            Button(onClick = { backAction(viewModel,activity,settingsDataStore) }) {
-            }
         }
     }
 }
@@ -122,8 +120,6 @@ private fun TabletLandscape(activity: MainActivity, viewModel: Connect4ViewModel
         }
         Column {
             Text(text =  logVM.allWords.value!![viewModel.entryId.value!!].data)
-            Button(onClick = { backAction(viewModel,activity,settingsDataStore) }) {
-            }
         }
     }
 }
