@@ -303,9 +303,7 @@ private fun PhoneLandscape(activity: MainActivity, viewModel: Connect4ViewModel)
     }
 }
 
-fun insertToDB(){
 
-}
 
 
 
