@@ -8,6 +8,6 @@ import androidx.room.PrimaryKey;
 class LogStrings(
     @PrimaryKey(autoGenerate = true)
     val id: Int? = null,
-    val valor: String
+    val data: String
 
 )

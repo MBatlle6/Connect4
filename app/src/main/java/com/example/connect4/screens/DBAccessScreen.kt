@@ -39,6 +39,7 @@ fun DBAccesScreen(activity: MainActivity, viewModel: Connect4ViewModel, settings
 @Composable
 private fun PhonePortrait(activity: MainActivity, viewModel: Connect4ViewModel, settingsDataStore: SettingsDataStore){
     LazyColumn(modifier = Modifier.fillMaxWidth()) {
+
     }
 }
 

@@ -43,10 +43,16 @@ import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
+import com.example.connect4.bbdd.LogViewModel
+import androidx.activity.viewModels
+import com.example.connect4.bbdd.LogStrings
 
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 @Composable
-fun LogScreen(activity: MainActivity, viewModel: Connect4ViewModel) {
+fun LogScreen(activity: MainActivity, viewModel: Connect4ViewModel, logVM:LogViewModel) {
+    var logObject = LogStrings(null, viewModel.log.value!!)
+
+        logVM.insert(logObject)
 
     val windowSizeClass = calculateWindowSizeClass(activity = activity)
     if (windowSizeClass.widthSizeClass == WindowWidthSizeClass.Compact){
