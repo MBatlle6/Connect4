@@ -142,7 +142,11 @@ fun Timer(activity: MainActivity, viewModel: Connect4ViewModel, settingsDataStor
         LaunchedEffect(Unit) {
             while (viewModel.countdownTime.value!! > 0) {
                 if(viewModel.gameFinished.value!!){
+                    Toast.makeText(activity,viewModel.resultat.value,Toast.LENGTH_LONG).show()
                     viewModel.addToLog("\n" + activity.getString(R.string.totalTime) + ": " + viewModel.time.value.toString() + " s")
+                    viewModel.addToLog("\n" + viewModel.resultat.value)
+                    viewModel.setGameScreen(false)
+                    viewModel.setLogScreen(true)
                     break
                 }
                 delay(1000L)

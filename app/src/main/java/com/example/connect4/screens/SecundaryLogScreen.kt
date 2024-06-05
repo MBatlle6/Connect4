@@ -2,7 +2,10 @@ package com.example.connect4.screens
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
@@ -36,6 +39,7 @@ fun SecundaryLogScreen(activity: MainActivity, viewModel: Connect4ViewModel,logV
 private fun PhonePortrait(activity: MainActivity, viewModel: Connect4ViewModel,logVM: LogViewModel, settingsDataStore: SettingsDataStore){
     Column {
         Text(text =  logVM.allWords.value!![viewModel.entryId.value!!].alias + logVM.allWords.value!![viewModel.entryId.value!!].data)
+        Spacer(modifier = Modifier.height(50.dp))
         Button(onClick = { backAction(viewModel,activity,settingsDataStore) }) {
             Text(text = activity.getString(R.string.GoBack))
         }
@@ -50,6 +54,7 @@ private fun PhonePortrait(activity: MainActivity, viewModel: Connect4ViewModel,l
 private fun PhoneLandscape(activity: MainActivity, viewModel: Connect4ViewModel,logVM: LogViewModel, settingsDataStore: SettingsDataStore){
     Column {
         Text(text =  logVM.allWords.value!![viewModel.entryId.value!!].alias + logVM.allWords.value!![viewModel.entryId.value!!].data)
+        Spacer(modifier = Modifier.height(50.dp))
         Button(onClick = { backAction(viewModel,activity,settingsDataStore) }) {
             Text(text = activity.getString(R.string.GoBack))
         }

@@ -102,6 +102,7 @@ fun backAction(viewModel: Connect4ViewModel, activity: MainActivity, settingsDat
     if(viewModel.secundaryLogScreen.value == true){
         viewModel.setSecundaryLogScreen(false)
         viewModel.setDBAccess(true)
+        return
     }
 
     settingsDataStore.preferenceFlowAlias.asLiveData().observe(activity) {
