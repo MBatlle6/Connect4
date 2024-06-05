@@ -42,8 +42,11 @@ fun DBAccesScreen(activity: MainActivity, viewModel: Connect4ViewModel, settings
 @Composable
 private fun PhonePortrait(activity: MainActivity, viewModel: Connect4ViewModel,logVM: LogViewModel, settingsDataStore: SettingsDataStore){
     LazyColumn(modifier = Modifier.fillMaxWidth(),verticalArrangement = Arrangement.spacedBy(8.dp)) {
-        //item {  Text(text = logVM.allWords.value?.get(2)?.data!!) }
-        val logs:List<LogStrings> = logVM.allWords.value!!
+        for (entry in logVM.allWords.value!!){
+            item {
+                Text(text = entry.alias + entry.currentTime)
+            }
+        }
 
     }
 
