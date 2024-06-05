@@ -6,13 +6,17 @@ import android.content.Context;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase
+import androidx.sqlite.db.SupportSQLiteDatabase
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 import kotlin.jvm.Volatile;
 
-@Database(entities = arrayOf(LogStrings::class), version = 1, exportSchema = false)
-public abstract class LogDataBase : RoomDatabase() {
+@Database(entities = [LogStrings::class], version = 1)
+abstract class LogDataBase : RoomDatabase() {
 
-    abstract fun Log_Screens_DAO(): Log_Screens_DAO
+    abstract fun dao(): LogScreensDAO
 
     companion object {
         // Singleton prevents multiple instances of database opening at the
@@ -20,7 +24,7 @@ public abstract class LogDataBase : RoomDatabase() {
         @Volatile
         private var INSTANCE: LogDataBase? = null
 
-        fun getDataBase(context: Context): LogDataBase {
+        fun getDataBase(context: Context, scope: CoroutineScope): LogDataBase {
             // if the INSTANCE is not null, then return it,
             // if it is, then create the database
             return INSTANCE ?: synchronized(this) {
@@ -28,11 +32,35 @@ public abstract class LogDataBase : RoomDatabase() {
                     context.applicationContext,
                     LogDataBase::class.java,
                     "log_database"
-                ).build()
+                )
+                    .addCallback(LogDatabaseCallback(scope))
+                    .build()
                 INSTANCE = instance
                 // return instance
                 instance
             }
+        }
+        private class LogDatabaseCallback(
+            private val scope: CoroutineScope
+        ) : RoomDatabase.Callback() {
+            /**
+             * Override the onCreate method to populate the database.
+             */
+            override fun onCreate(db: SupportSQLiteDatabase) {
+                super.onCreate(db)
+                // If you want to keep the data through app restarts,
+                // comment out the following line.
+                INSTANCE?.let { database ->
+                    scope.launch(Dispatchers.IO) {
+                        populateDatabase(database.dao())
+                    }
+                }
+            }
+        }
+        suspend fun populateDatabase(wordDao: LogScreensDAO) {
+            // Start the app with a clean database every time.
+            // Not needed if you only populate on creation.
+            wordDao.deleteAll()
         }
     }
 

@@ -1,13 +1,19 @@
 package com.example.connect4.screens
 
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
 import androidx.compose.material3.windowsizeclass.WindowHeightSizeClass
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import com.example.connect4.Connect4ViewModel
 import com.example.connect4.MainActivity
+import com.example.connect4.bbdd.LogViewModel
 import com.example.connect4.data.SettingsDataStore
 
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
@@ -32,7 +38,8 @@ fun DBAccesScreen(activity: MainActivity, viewModel: Connect4ViewModel, settings
 
 @Composable
 private fun PhonePortrait(activity: MainActivity, viewModel: Connect4ViewModel, settingsDataStore: SettingsDataStore){
-    Text("Phone Portrait")
+    LazyColumn(modifier = Modifier.fillMaxWidth()) {
+    }
 }
 
 @Composable

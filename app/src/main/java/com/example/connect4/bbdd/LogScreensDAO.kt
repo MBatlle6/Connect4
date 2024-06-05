@@ -1,19 +1,17 @@
 package com.example.connect4.bbdd;
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
-import java.util.concurrent.Flow
-import com.example.connect4.data.SettingsDataStore
+//import java.util.concurrent.Flow
+import kotlinx.coroutines.flow.Flow
 
 
 @Dao
-interface Log_Screens_DAO {
-
+interface LogScreensDAO {
     @Query("SELECT * FROM Strings_table ORDER BY id ASC")
-    fun getAlphabetizedWords(): LiveData<List<LogStrings>>//Flow<List<LogStrings>>
+    fun getLogs(): Flow<List<LogStrings>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(word: LogStrings)

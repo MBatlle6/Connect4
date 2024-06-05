@@ -275,7 +275,7 @@ class Connect4ViewModel : ViewModel() {
                 //per mirar si el tauler esta complet
                 _numeroDeFixes.value = +1
                 if(_numeroDeFixes.value == 49){
-                    if (comprobarsihemguanyatGran()){
+                    if (comprobarSiHemGuanyat(grid)){
                         println("Joc Finalitzat")
                         _resultat.value = "Victoria del jugador ROIG"
                         setGameFinished(true)
@@ -284,7 +284,7 @@ class Connect4ViewModel : ViewModel() {
                     _resultat.value = "EMPAT"
                     setGameFinished(true)
                 }
-                if (comprobarsihemguanyatGran()){
+                if (comprobarSiHemGuanyat(grid)){
                     println("Joc Finalitzat")
                     _resultat.value = "Victoria del jugador ROIG"
                     setGameFinished(true)
@@ -352,7 +352,7 @@ class Connect4ViewModel : ViewModel() {
             val j = Random.nextInt(0,7)
             if(ifposiciocorrecta(i,j,grid)){
                 viewModel.setCellColorBigGrid(i,j,Color.Yellow,"Y")
-                if (comprobarsihemguanyatGran()){
+                if (comprobarSiHemGuanyat(grid)){
                     println("Joc Finalitzat, guanya groc BigGrid")
                     _resultat.value = "Victoria del jugador GROC"
                     setGameFinished(true)
@@ -390,8 +390,84 @@ class Connect4ViewModel : ViewModel() {
             }
         }
     }
+
+    private fun comprobarSiHemGuanyat(grid: Int):Boolean{
+        val currentGrid = _bigGrid.value
+        val w:String = "W"
+        val size = 1
+        if (grid == 1){
+            var currentGrid = _bigGrid.value
+            var size = 7
+        }else if(grid == 2){
+            var currentGrid = _mediumGrid.value
+            var size = 6
+        }else if(grid == 3){
+            var currentGrid = _littleGrid.value
+            var size = 5
+        }
+        currentGrid?.let { grid->
+            var positionToCheck:String?
+            // mirem files
+            for (row in 0 until size) {
+                for (col in 0 until size -3) {
+                    if (grid[row][col].second == grid[row][col + 1].second &&
+                        grid[row][col].second == grid[row][col + 2].second &&
+                        grid[row][col].second == grid[row][col + 3].second) {
+                        positionToCheck =  getCellColorBigGrid(row,col)
+                        if(positionToCheck != w){
+                            return true
+                        }
+                    }
+                }
+            }
+
+            // mirem columnes
+            for (col in 0 until size) {
+                for (row in 0 until size -3) {
+                    if (grid[row][col].second == grid[row + 1][col].second &&
+                        grid[row][col].second == grid[row + 2][col].second &&
+                        grid[row][col].second == grid[row + 3][col].second) {
+                        positionToCheck =  getCellColorBigGrid(row,col)
+                        if(positionToCheck != w){
+                            return true
+                        }
+                    }
+                }
+            }
+
+            // diagonals (esquerra a dalt- dreta a baix )
+            for (row in 0 until size-3) {
+                for (col in 0 until size -3) {
+                    if (grid[row][col].second == grid[row + 1][col + 1].second &&
+                        grid[row][col].second == grid[row + 2][col + 2].second &&
+                        grid[row][col].second == grid[row + 3][col + 3].second) {
+                        positionToCheck =  getCellColorBigGrid(row,col)
+                        if(positionToCheck != w){
+                            return true
+                        }
+                    }
+                }
+            }
+
+            // diagonals (dreta dalt- esquerra baix) (right-top to left-bottom)
+            for (row in 0 until size -3) {
+                for (col in size -4 until size) {
+                    if (grid[row][col].second == grid[row + 1][col - 1].second &&
+                        grid[row][col].second == grid[row + 2][col - 2].second &&
+                        grid[row][col].second == grid[row + 3][col - 3].second) {
+                        positionToCheck =  getCellColorBigGrid(row,col)
+                        if(positionToCheck != w){
+                            return true
+                        }
+                    }
+                }
+            }
+        }
+        return false
+    }
     private fun comprobarsihemguanyatGran():Boolean{
         val w:String = "W"
+        val i = 1
         val currentGrid = _bigGrid.value
         //----------matriu gran----------
         currentGrid?.let { grid->
