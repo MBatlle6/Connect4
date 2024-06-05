@@ -68,6 +68,7 @@ class MainActivity : ComponentActivity() {
             viewModel.logWritten.observeAsState().value
             viewModel.gameLog.observeAsState().value
             viewModel.dbAccess.observeAsState().value
+            viewModel.logDBWritten.observeAsState().value
 
             Connect4Theme {
                 // A surface container using the 'background' color from the theme

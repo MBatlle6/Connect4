@@ -55,9 +55,10 @@ import com.example.connect4.data.SettingsDataStore
 fun LogScreen(activity: MainActivity, viewModel: Connect4ViewModel, logVM:LogViewModel,settingsDataStore: SettingsDataStore) {
 
     val aliasState = settingsDataStore.preferenceFlowAlias.asLiveData().observeAsState()
-    if(aliasState.value != null){
+    if(aliasState.value != null && !viewModel.logDBWritten.value!!){
         var logObject = LogStrings(null, viewModel.log.value?:"null",LocalDateTime.now().toString(),aliasState.value?: "null")
         logVM.insert(logObject)
+        viewModel.setLogDBWritten(true)
     }
 
 
@@ -301,5 +302,10 @@ private fun PhoneLandscape(activity: MainActivity, viewModel: Connect4ViewModel)
 
     }
 }
+
+fun insertToDB(){
+
+}
+
 
 

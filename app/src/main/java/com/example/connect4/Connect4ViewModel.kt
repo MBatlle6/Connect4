@@ -72,6 +72,9 @@ class Connect4ViewModel : ViewModel() {
     private val _logWritten = MutableLiveData<Boolean>(false)
     val logWritten: LiveData<Boolean> = _logWritten
 
+    private val _logDBWritten = MutableLiveData<Boolean>(false)
+    val logDBWritten: LiveData<Boolean> = _logDBWritten
+
     private val _numeroDeFixes = MutableLiveData<Int>(0)
     val numeroDeFixes: LiveData<Int> = _numeroDeFixes
 
@@ -80,6 +83,10 @@ class Connect4ViewModel : ViewModel() {
 
     fun setLogWritten(value: Boolean){
         _logWritten.value = value
+    }
+
+    fun setLogDBWritten(value: Boolean){
+        _logDBWritten.value = value
     }
 
     fun setFromMainMenu(value: Boolean){
@@ -214,6 +221,7 @@ class Connect4ViewModel : ViewModel() {
         _numeroDeFixes.value = 0
         _gameFinished.value = false
         _logWritten.value = false
+        _logDBWritten.value = false
     }
 
     fun incrementTime(){
