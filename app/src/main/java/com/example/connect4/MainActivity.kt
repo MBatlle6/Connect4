@@ -11,7 +11,9 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.asLiveData
+import com.example.connect4.bbdd.LogApplication
 import com.example.connect4.bbdd.LogViewModel
+import com.example.connect4.bbdd.WordViewModelFactory
 import com.example.connect4.data.SettingsDataStore
 import com.example.connect4.screens.ConfigurationScreen
 import com.example.connect4.screens.DBAccesScreen
@@ -23,7 +25,6 @@ import com.example.connect4.ui.theme.Connect4Theme
 
 class MainActivity : ComponentActivity() {
 
-
     private val onBackPressedCallback = object : OnBackPressedCallback(true){  //Gestionar cuanda el user hace return
         override fun handleOnBackPressed() {
             backAction(viewModel,this@MainActivity, settingsDataStore)
@@ -31,7 +32,9 @@ class MainActivity : ComponentActivity() {
     }
 
     private val viewModel by viewModels<Connect4ViewModel>()
-    private val logVM by viewModels<LogViewModel>()
+    private val logVM: LogViewModel by viewModels {
+        WordViewModelFactory((application as LogApplication).repository)
+    }
 
     lateinit var settingsDataStore: SettingsDataStore
 
@@ -76,7 +79,7 @@ class MainActivity : ComponentActivity() {
                     else if(viewModel.logScreen.value == true) LogScreen(this, viewModel, logVM)
                     else if(viewModel.gameScreen.value == true) GameScreen(this, viewModel, settingsDataStore)
                     else if (viewModel.configurationScreen.value == true) ConfigurationScreen(this, viewModel, settingsDataStore)
-                    else if(viewModel.dbAccess.value == true) DBAccesScreen(this, viewModel, settingsDataStore)
+                    else if(viewModel.dbAccess.value == true) DBAccesScreen(this, viewModel, settingsDataStore,logVM)
                     else if(viewModel.helpScreen.value == true) HelpScreen(this, viewModel, settingsDataStore)
 
                 }

@@ -250,7 +250,10 @@ class Connect4ViewModel : ViewModel() {
     }
 
     fun addToGameLog(value: String){
-        _gameLog.value = _gameLog.value +"\n" + "\n" + value
+
+        var i= 1
+        var j = 1
+        _gameLog.value = _gameLog.value +i + j + value
     }
 
     fun setMainMenu(value: Boolean){
