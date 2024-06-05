@@ -72,6 +72,7 @@ class MainActivity : ComponentActivity() {
             viewModel.logDBWritten.observeAsState().value
             logVM.allWords.observeAsState().value
             viewModel.secundaryLogScreen.observeAsState().value
+            viewModel.entryId.observeAsState().value
 
             Connect4Theme {
                 // A surface container using the 'background' color from the theme

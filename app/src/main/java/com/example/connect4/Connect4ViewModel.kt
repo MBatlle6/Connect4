@@ -4,9 +4,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.example.connect4.data.SettingsDataStore
-import kotlinx.coroutines.launch
 import kotlin.random.Random
 
 
@@ -60,6 +57,9 @@ class Connect4ViewModel : ViewModel() {
     private val _time = MutableLiveData<Int>(0)
     val time: LiveData<Int> = _time
 
+    private val _entryId = MutableLiveData<Int>(0)
+    val entryId: LiveData<Int> = _entryId
+
     private val _countdownTime = MutableLiveData<Int>(15)
     val countdownTime: LiveData<Int> = _countdownTime
 
@@ -84,6 +84,9 @@ class Connect4ViewModel : ViewModel() {
     private val _resultat = MutableLiveData<String>("")
     val resultat: LiveData<String> = _resultat
 
+    fun setentryId(value:Int){
+        _entryId.value = value
+    }
     fun setLogWritten(value: Boolean){
         _logWritten.value = value
     }
@@ -238,7 +241,7 @@ class Connect4ViewModel : ViewModel() {
     fun setLogScreen(value: Boolean){
         _logScreen.value = value
     }
-    fun setSecundaryLogScreen(value:Boolean){
+    fun setSecundaryLogScreen(value: Boolean){
         _secondaryLogScreen.value = value
     }
 

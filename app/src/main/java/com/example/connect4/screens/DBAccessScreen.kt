@@ -1,10 +1,8 @@
 package com.example.connect4.screens
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
@@ -13,11 +11,9 @@ import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.unit.dp
 import com.example.connect4.Connect4ViewModel
 import com.example.connect4.MainActivity
-import com.example.connect4.bbdd.LogStrings
 import com.example.connect4.bbdd.LogViewModel
 import com.example.connect4.data.SettingsDataStore
 
@@ -49,7 +45,8 @@ private fun PhonePortrait(activity: MainActivity, viewModel: Connect4ViewModel,l
                 Button(
                     onClick = {
                         viewModel.setDBAccess(false)
-                        viewModel.setSecundaryLogScreen(true)}
+                        viewModel.setSecundaryLogScreen(true)
+                        viewModel.setentryId(entry.id!!)}
                 )
                 {
                     Text(text =entry.alias + "  " +entry.currentTime)
@@ -69,7 +66,8 @@ private fun PhoneLandscape(activity: MainActivity, viewModel: Connect4ViewModel,
                 Button(
                     onClick = {
                         viewModel.setDBAccess(false)
-                        viewModel.setSecundaryLogScreen(true)}
+                        viewModel.setSecundaryLogScreen(true)
+                        viewModel.setentryId(entry.id!!)}
                 )
                 {
                     Text(text =entry.alias + "  " +entry.currentTime)
