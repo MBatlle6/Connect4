@@ -43,10 +43,8 @@ fun DBAccesScreen(activity: MainActivity, viewModel: Connect4ViewModel, settings
 private fun PhonePortrait(activity: MainActivity, viewModel: Connect4ViewModel,logVM: LogViewModel, settingsDataStore: SettingsDataStore){
     LazyColumn(modifier = Modifier.fillMaxWidth(),verticalArrangement = Arrangement.spacedBy(8.dp)) {
         //item {  Text(text = logVM.allWords.value?.get(2)?.data!!) }
-        val logs:List<LogStrings> = logVM.allWords.value?: mutableListOf()
-        item(logs.size){index->
-            Text(text = logs[index])
-        }
+        val logs:List<LogStrings> = logVM.allWords.value!!
+
     }
 
 }

@@ -45,13 +45,17 @@ import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import com.example.connect4.bbdd.LogViewModel
 import androidx.activity.viewModels
+import androidx.compose.runtime.livedata.observeAsState
+import androidx.lifecycle.asLiveData
 import com.example.connect4.bbdd.LogStrings
+import com.example.connect4.data.SettingsDataStore
 
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 @Composable
-fun LogScreen(activity: MainActivity, viewModel: Connect4ViewModel, logVM:LogViewModel) {
-    var logObject = LogStrings(null, viewModel.log.value!!)
+fun LogScreen(activity: MainActivity, viewModel: Connect4ViewModel, logVM:LogViewModel,settingsDataStore: SettingsDataStore) {
 
+    val aliasState = settingsDataStore.preferenceFlowAlias.asLiveData().observeAsState()
+    var logObject = LogStrings(null, viewModel.log.value!!,LocalDateTime.now().toString(),aliasState.value!!)
         logVM.insert(logObject)
 
     val windowSizeClass = calculateWindowSizeClass(activity = activity)

@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 
 import kotlin.jvm.Volatile;
 
-@Database(entities = [LogStrings::class], version = 1)
+@Database(entities = [LogStrings::class], version = 2)
 abstract class LogDataBase : RoomDatabase() {
 
     abstract fun dao(): LogScreensDAO

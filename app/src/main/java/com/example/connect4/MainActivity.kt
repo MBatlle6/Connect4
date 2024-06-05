@@ -76,7 +76,7 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     if(viewModel.mainMenu.value == true) MainMenu(this, viewModel)
-                    else if(viewModel.logScreen.value == true) LogScreen(this, viewModel, logVM)
+                    else if(viewModel.logScreen.value == true) LogScreen(this, viewModel, logVM,settingsDataStore)
                     else if(viewModel.gameScreen.value == true) GameScreen(this, viewModel, settingsDataStore)
                     else if (viewModel.configurationScreen.value == true) ConfigurationScreen(this, viewModel, settingsDataStore)
                     else if(viewModel.dbAccess.value == true) DBAccesScreen(this, viewModel, settingsDataStore,logVM)
@@ -88,6 +88,10 @@ class MainActivity : ComponentActivity() {
     }
 }
 fun backAction(viewModel: Connect4ViewModel, activity: MainActivity, settingsDataStore: SettingsDataStore) {
+
+    if(viewModel.gameScreen.value == true){
+        activity.finish()
+    }
 
     settingsDataStore.preferenceFlowAlias.asLiveData().observe(activity) {
         if (it == "") {
