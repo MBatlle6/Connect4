@@ -55,8 +55,11 @@ import com.example.connect4.data.SettingsDataStore
 fun LogScreen(activity: MainActivity, viewModel: Connect4ViewModel, logVM:LogViewModel,settingsDataStore: SettingsDataStore) {
 
     val aliasState = settingsDataStore.preferenceFlowAlias.asLiveData().observeAsState()
-    var logObject = LogStrings(null, viewModel.log.value!!,LocalDateTime.now().toString(),aliasState.value!!)
+    if(aliasState.value != null){
+        var logObject = LogStrings(null, viewModel.log.value?:"null",LocalDateTime.now().toString(),aliasState.value?: "null")
         logVM.insert(logObject)
+    }
+
 
     val windowSizeClass = calculateWindowSizeClass(activity = activity)
     if (windowSizeClass.widthSizeClass == WindowWidthSizeClass.Compact){

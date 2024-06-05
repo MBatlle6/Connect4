@@ -34,6 +34,7 @@ abstract class LogDataBase : RoomDatabase() {
                     "log_database"
                 )
                     .addCallback(LogDatabaseCallback(scope))
+                    .fallbackToDestructiveMigration()
                     .build()
                 INSTANCE = instance
                 // return instance
