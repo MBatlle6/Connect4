@@ -1,5 +1,6 @@
 package com.example.connect4.screens
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -24,11 +25,13 @@ import androidx.compose.ui.unit.sp
 import com.example.connect4.Connect4ViewModel
 import com.example.connect4.MainActivity
 import com.example.connect4.R
+import com.example.connect4.bbdd.LogViewModel
 import com.example.connect4.widgets.SettingsButton
 import com.example.connect4.widgets.TopBar
+import java.security.AccessController.getContext
 
 @Composable
-fun MainMenu(activity: MainActivity, viewModel: Connect4ViewModel){
+fun MainMenu(activity: MainActivity, viewModel: Connect4ViewModel, logVM: LogViewModel){
     Row {
         Image(
             painter = painterResource(id = R.mipmap.main_icon_foreground),
@@ -68,10 +71,12 @@ fun MainMenu(activity: MainActivity, viewModel: Connect4ViewModel){
         }
         Button(
             onClick = {
-                viewModel.setMainMenu(false)
-                viewModel.setHelpScreen(false)
-                viewModel.setConfigurationScreen(false)
-                viewModel.setDBAccess(true)
+                if(logVM.allWords.value?.isEmpty() == false){
+                    viewModel.setMainMenu(false)
+                    viewModel.setHelpScreen(false)
+                    viewModel.setConfigurationScreen(false)
+                    viewModel.setDBAccess(true)
+                }
             },
         ) {
             Text(text = activity.getString(R.string.checkGames))

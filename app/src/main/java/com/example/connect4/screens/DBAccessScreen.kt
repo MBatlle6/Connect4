@@ -3,7 +3,10 @@ package com.example.connect4.screens
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
@@ -16,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.connect4.Connect4ViewModel
 import com.example.connect4.MainActivity
+import com.example.connect4.R
 import com.example.connect4.backAction
 import com.example.connect4.bbdd.LogViewModel
 import com.example.connect4.data.SettingsDataStore
@@ -88,17 +92,21 @@ private fun TabletPortrait(activity: MainActivity, viewModel: Connect4ViewModel,
             for (entry in logVM.allWords.value!!){
                 item {
                     Button(
-                        onClick = {activity.finish()}
+                        onClick = {viewModel.setentryId(entry.id!!)}
                     )
                     {
                         Text(text =entry.alias + "  " +entry.currentTime)
                     }
                 }
-
             }
         }
+        Spacer(modifier = Modifier.width(50.dp))
         Column {
-            Text(text =  logVM.allWords.value!![viewModel.entryId.value!!].data)
+            Text(text =  logVM.allWords.value!![viewModel.entryId.value!!].alias + logVM.allWords.value!![viewModel.entryId.value!!].data)
+        }
+        Spacer(modifier = Modifier.width(50.dp))
+        Button(onClick = { backAction(viewModel,activity,settingsDataStore) }) {
+            Text(text = activity.getString(R.string.GoBack))
         }
     }
 }
@@ -106,11 +114,11 @@ private fun TabletPortrait(activity: MainActivity, viewModel: Connect4ViewModel,
 @Composable
 private fun TabletLandscape(activity: MainActivity, viewModel: Connect4ViewModel,logVM: LogViewModel, settingsDataStore: SettingsDataStore){
     Row {
-        LazyColumn(modifier = Modifier.fillMaxWidth(),verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        LazyColumn(modifier = Modifier.fillMaxHeight(),verticalArrangement = Arrangement.spacedBy(8.dp)) {
             for (entry in logVM.allWords.value!!){
                 item {
                     Button(
-                        onClick = {activity.finish()}
+                        onClick = {viewModel.setentryId(entry.id!!)}
                     )
                     {
                         Text(text =entry.alias + "  " +entry.currentTime)
@@ -118,8 +126,13 @@ private fun TabletLandscape(activity: MainActivity, viewModel: Connect4ViewModel
                 }
             }
         }
+        Spacer(modifier = Modifier.width(50.dp))
         Column {
-            Text(text =  logVM.allWords.value!![viewModel.entryId.value!!].data)
+            Text(text =  logVM.allWords.value!![viewModel.entryId.value!!].alias + logVM.allWords.value!![viewModel.entryId.value!!].data)
+        }
+        Spacer(modifier = Modifier.width(50.dp))
+        Button(onClick = { backAction(viewModel,activity,settingsDataStore) }) {
+            Text(text = activity.getString(R.string.GoBack))
         }
     }
 }

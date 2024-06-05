@@ -26,6 +26,7 @@
     <string name="remainingTime">Remaining time: </string>
     <string name="moveTime">Move time: </string>
     <string name="checkGames">Check games</string>
+    <string name="GoBack">Back</string>
 
 
 </resources>

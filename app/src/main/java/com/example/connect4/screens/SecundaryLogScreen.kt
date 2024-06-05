@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.connect4.Connect4ViewModel
 import com.example.connect4.MainActivity
+import com.example.connect4.R
 import com.example.connect4.backAction
 import com.example.connect4.bbdd.LogViewModel
 import com.example.connect4.data.SettingsDataStore
@@ -34,9 +35,9 @@ fun SecundaryLogScreen(activity: MainActivity, viewModel: Connect4ViewModel,logV
 @Composable
 private fun PhonePortrait(activity: MainActivity, viewModel: Connect4ViewModel,logVM: LogViewModel, settingsDataStore: SettingsDataStore){
     Column {
-        Text(text =  logVM.allWords.value!![viewModel.entryId.value!!].data)
+        Text(text =  logVM.allWords.value!![viewModel.entryId.value!!].alias + logVM.allWords.value!![viewModel.entryId.value!!].data)
         Button(onClick = { backAction(viewModel,activity,settingsDataStore) }) {
-
+            Text(text = activity.getString(R.string.GoBack))
         }
     }
 
@@ -48,9 +49,9 @@ private fun PhonePortrait(activity: MainActivity, viewModel: Connect4ViewModel,l
 @Composable
 private fun PhoneLandscape(activity: MainActivity, viewModel: Connect4ViewModel,logVM: LogViewModel, settingsDataStore: SettingsDataStore){
     Column {
-        Text(text =  logVM.allWords.value!![viewModel.entryId.value!!].data)
+        Text(text =  logVM.allWords.value!![viewModel.entryId.value!!].alias + logVM.allWords.value!![viewModel.entryId.value!!].data)
         Button(onClick = { backAction(viewModel,activity,settingsDataStore) }) {
-
+            Text(text = activity.getString(R.string.GoBack))
         }
     }
 }
